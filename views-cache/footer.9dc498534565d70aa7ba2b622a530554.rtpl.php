@@ -5,15 +5,26 @@
       Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; <?php echo date('Y'); ?> 
+      <a href="#">Company</a>.
+    </strong> Todos os direitos reservados.
   </footer>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Create the tabs -->
     <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-      <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+      <li class="active">
+        <a href="#control-sidebar-home-tab" data-toggle="tab">
+          <i class="fa fa-home"></i>
+        </a>
+      </li>
+
+      <li>
+        <a href="#control-sidebar-settings-tab" data-toggle="tab">
+          <i class="fa fa-gears"></i>
+        </a>
+      </li>
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
@@ -90,11 +101,11 @@
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 2.2.3 -->
-<script src="../res/admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="/res/admin/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
-<script src="../res/admin/bootstrap/js/bootstrap.min.js"></script>
+<script src="/res/admin/bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
-<script src="../res/admin/dist/js/app.min.js"></script>
+<script src="/res/admin/dist/js/app.min.js"></script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the

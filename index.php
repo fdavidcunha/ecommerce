@@ -99,6 +99,17 @@
 
 		User::verifyLogin();
 
+		// Validando se o valor do campo foi realmente informado.
+		$_POST[ "inadmin" ] = ( isset( $_POST[ "inadmin" ]) ) ? 1 : 0;
+
+		$user = new User();
+		$user->setData($_POST);
+		var_dump($user->getValues());
+		die();
+		$user->save();
+
+		header( "Location: /admin/users" );
+
 	});
 
 	$app->post("/admin/users/:iduser", function($iduser) {
