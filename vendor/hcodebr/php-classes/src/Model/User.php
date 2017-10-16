@@ -80,7 +80,7 @@ class User extends Model {
 	                                ":deslogin"=>$this->getdeslogin(),
 	                                ":despassword"=>$this->getdespassword(),
 	                                ":desemail"=>$this->getdesemail(),
-	                                ":desphone"=>$this->getdesphone(),
+	                                ":nrphone"=>$this->getnrphone(),
 	                                ":inadmin"=>$this->getinadmin() ) 
 	                           );
 
