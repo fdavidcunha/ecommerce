@@ -63,6 +63,12 @@ class User extends Model {
 			exit;
 		}
 	}
+
+	public static function listAll()
+	{
+		$sql = new Sql();
+		return $sql->select( "select * from tb_users u inner join tb_persons p using(idperson) order by p.desperson" );
+	}
 }
 
  ?>
