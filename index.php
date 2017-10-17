@@ -104,11 +104,10 @@
 
 		$user = new User();
 		$user->setData($_POST);
-		var_dump($user->getValues());
-		die();
 		$user->save();
 
 		header( "Location: /admin/users" );
+		exit;
 
 	});
 

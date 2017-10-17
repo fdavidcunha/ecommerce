@@ -9,7 +9,7 @@ class User extends Model {
 
 	const SESSION = "User";
 
-	protected $fields = ["iduser", "idperson", "deslogin", "despassword", "inadmin", "dtergister"];
+	protected $fields = [ "iduser", "idperson", "deslogin", "despassword", "inadmin", "dtergister", "desperson", "nrphone", "desemail" ];
 
 	public static function login($login, $password)
 	{
