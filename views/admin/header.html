@@ -257,7 +257,7 @@ desired effect
       <ul class="sidebar-menu">
         <li class="header">HEADER</li>
         
-        <li class="treeview">
+        <li class="treeview active">
           <a href="#">
             <i class="fa fa-link"></i> 
               <span>Cadastros</span>
@@ -267,7 +267,7 @@ desired effect
           </a>
           <ul class="treeview-menu">
             <li class="active">
-              <a href="admin/users">
+              <a href="/admin/users">
                 <i class="fa fa-users"></i> 
                 <span>Usuários</span>
               </a>

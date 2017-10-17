@@ -90,7 +90,7 @@
 
 		header( "Location: /admin/users" );
 		exit;
-		
+
 	});
 
 	$app->get("/admin/users/:iduser", function($iduser) {
@@ -135,6 +135,17 @@
 		// Validando se o valor do campo foi realmente informado.
 		header( "Location: /admin/users" );
 		exit;
+
+	});
+
+	$app->get( "/admin/forgot", function() {
+
+		$page = new PageAdmin( [ 
+			"header" => false, 
+			"footer" => false 
+		] );
+
+		$page->setTpl( "forgot" );
 
 	});
 
