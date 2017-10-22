@@ -6,7 +6,7 @@ class Sql {
 
 	const HOSTNAME = "127.0.0.1";
 	const USERNAME = "root";
-	const PASSWORD = "";
+	const PASSWORD = "root";
 	const DBNAME = "db_ecommerce";
 
 	private $conn;
@@ -14,11 +14,7 @@ class Sql {
 	public function __construct()
 	{
 
-		$this->conn = new \PDO(
-			"mysql:dbname=".Sql::DBNAME.";host=".Sql::HOSTNAME, 
-			Sql::USERNAME,
-			Sql::PASSWORD
-		);
+		$this->conn = new \PDO( "mysql:dbname=".Sql::DBNAME.";host=".Sql::HOSTNAME, Sql::USERNAME, Sql::PASSWORD );
 
 	}
 
@@ -47,7 +43,7 @@ class Sql {
 
 		$this->setParams($stmt, $params);
 
-		$stmt->execute();
+		return $stmt->execute();
 
 	}
 
@@ -61,9 +57,7 @@ class Sql {
 		$stmt->execute();
 
 		return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
 	}
-
 }
 
  ?>
