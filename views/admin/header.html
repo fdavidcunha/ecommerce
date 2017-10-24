@@ -267,14 +267,14 @@ desired effect
           </a>
           <ul class="treeview-menu">
             
-            <li>
+            <li class="active">
               <a href="/admin/users">
                 <i class="fa fa-users"></i> 
                 <span>Usuários</span>
               </a>
             </li>
 
-            <li>
+            <li class="active">
               <a href="/admin/categories">
                 <i class="fa fa-users"></i> 
                 <span>Categorias</span>

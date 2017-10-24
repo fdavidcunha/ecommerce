@@ -250,8 +250,6 @@
 		$page = new PageAdmin();
 		$page->setTpl( "categories-update", [ 'category' => $category->getValues() ] );
 
-		header("Location: /admin/categories");
-		exit();
 	});
 
 	// Rota para salvar a alteração da categoria.
@@ -267,6 +265,19 @@
 
 		header("Location: /admin/categories");
 		exit();
+	});
+
+	// Rota para a clicar no item da lista de categorias, no rodapé do site.
+	$app->get( "/category/:idcategory", function( $idcategory ) {
+
+		$category = new Category();
+		$category->get( (int)$idcategory );
+
+		$page = new Page();
+		$page->setTpl( "category", [ 
+			'category' => $category->getValues(),
+			'produtos' => [] 
+		]);
 	});
 
 	$app->run();
