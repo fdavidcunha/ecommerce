@@ -281,6 +281,13 @@ desired effect
               </a>
             </li>
 
+            <li class="active">
+              <a href="/admin/products">
+                <i class="fa fa-users"></i> 
+                <span>Produtos</span>
+              </a>
+            </li>
+
           </ul>
         </li>
         
