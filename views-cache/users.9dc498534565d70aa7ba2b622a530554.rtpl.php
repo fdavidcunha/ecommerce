@@ -13,6 +13,7 @@
         <i class="fa fa-dashboard"></i> Home
       </a>
     </li>
+
     <li class="active">
       <a href="/admin/users">Usuários</a>
     </li>
@@ -28,7 +29,7 @@
   		<div class="box box-primary">
             
             <div class="box-header">
-              <a href="/admin/users/create" class="btn btn-success">Cadastrar Usuário</a>
+              <a href="/admin/users/create" class="btn btn-success">Novo</a>
             </div>
 
             <div class="box-body no-padding">

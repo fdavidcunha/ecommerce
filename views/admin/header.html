@@ -266,7 +266,8 @@ desired effect
               </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active">
+            
+            <li>
               <a href="/admin/users">
                 <i class="fa fa-users"></i> 
                 <span>Usuários</span>
@@ -274,9 +275,9 @@ desired effect
             </li>
 
             <li>
-              <a href="#">
+              <a href="/admin/categories">
                 <i class="fa fa-users"></i> 
-                <span>Outra coisa</span>
+                <span>Categorias</span>
               </a>
             </li>
 

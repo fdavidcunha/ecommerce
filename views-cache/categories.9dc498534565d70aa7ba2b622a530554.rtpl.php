@@ -1,10 +1,10 @@
-<!-- Content Wrapper. Contains page content -->
+<?php if(!class_exists('Rain\Tpl')){exit;}?><!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
 <section class="content-header">
-  
+
   <h1>
-    Lista de Usuários
+    Lista de Categorias
   </h1>
   
   <ol class="breadcrumb">
@@ -13,9 +13,9 @@
         <i class="fa fa-dashboard"></i> Home
       </a>
     </li>
-
+    
     <li class="active">
-      <a href="/admin/users">Usuários</a>
+      <a href="/admin/categories">Categorias</a>
     </li>
   </ol>
 
@@ -29,7 +29,7 @@
   		<div class="box box-primary">
             
             <div class="box-header">
-              <a href="/admin/users/create" class="btn btn-success">Novo</a>
+              <a href="/admin/categories/create" class="btn btn-success">Nova</a>
             </div>
 
             <div class="box-body no-padding">
@@ -37,32 +37,28 @@
                 <thead>
                   <tr>
                     <th style="width: 10px">#</th>
-                    <th>Nome</th>
-                    <th>E-mail</th>
-                    <th>Login</th>
-                    <th style="width: 60px">Admin</th>
+                    <th>Nome da Categoria</th>
                     <th style="width: 140px">&nbsp;</th>
                   </tr>
                 </thead>
+
                 <tbody>
-                  {loop="$users"}
+                  <?php $counter1=-1;  if( isset($categories) && ( is_array($categories) || $categories instanceof Traversable ) && sizeof($categories) ) foreach( $categories as $key1 => $value1 ){ $counter1++; ?>
                   <tr>
-                    <td>{$value.iduser}</td>
-                    <td>{$value.desperson}</td>
-                    <td>{$value.desemail}</td>
-                    <td>{$value.deslogin}</td/>
-                    <td>{if="$value.inadmin == 1"}Sim{else}Não{/if}</td>
+                    <td><?php echo htmlspecialchars( $value1["idcategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
+                    <td><?php echo htmlspecialchars( $value1["descategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td>
-                      <a href="/admin/users/{$value.iduser}" class="btn btn-primary btn-xs">
+                      <a href="/admin/categories/<?php echo htmlspecialchars( $value1["idcategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs">
                         <i class="fa fa-edit"></i> Editar
                       </a>
-                      <a href="/admin/users/{$value.iduser}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs">
+                      <a href="/admin/categories/<?php echo htmlspecialchars( $value1["idcategory"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs">
                         <i class="fa fa-trash"></i> Excluir
                       </a>
                     </td>
                   </tr>
-                  {/loop}
+                  <?php } ?>
                 </tbody>
+                
               </table>
             </div>
             <!-- /.box-body -->

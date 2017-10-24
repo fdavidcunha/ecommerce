@@ -31,7 +31,8 @@ class Model {
 			{
 
 				case "get":
-					return $this->values[$fieldName];
+					// Verificando se o atributo existe. Se não existir retorna nulo.
+					return ( isset( $this->values[ $fieldName ] ) ) ? $this->values[ $fieldName ] : NULL;
 				break;
 
 				case "set":
