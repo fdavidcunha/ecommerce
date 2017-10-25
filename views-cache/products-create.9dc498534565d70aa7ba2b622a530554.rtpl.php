@@ -1,4 +1,4 @@
-<!-- Content Wrapper. Contains page content -->
+<?php if(!class_exists('Rain\Tpl')){exit;}?><!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -58,7 +58,7 @@
 
             <div class="form-group">
               <label for="vlweight">URL</label>
-              <input type="text" class="form-control" id="desurl" name="desurl">
+              <input type="url" class="form-control" id="desurl" name="desurl">
             </div>
 
           </div>

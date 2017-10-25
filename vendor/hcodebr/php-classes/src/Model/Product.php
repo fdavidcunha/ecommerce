@@ -8,7 +8,7 @@ use \Hcode\Mailer;
 
 class Product extends Model {
 
-	protected $fields = [ "idcategory", "descategory" ];
+	protected $fields = [ "idproduct", "desproduct", "vlprice", "vlwidth", "vlheight", "vllength", "vlweight", "desurl" ];
 
 	public static function listAll()
 	{
@@ -21,16 +21,16 @@ class Product extends Model {
 
 		$sql = new Sql();
 
-		$results = $sql->select( "CALL sp_products_save( :idproduct, :desproduct, :vlprice, :vlwidth, :vlheight, :vllength, :vlweight, :desurl )", 
+		$results = $sql->select( "CALL sp_products_save( :pidproduct, :pdesproduct, :pvlprice, :pvlwidth, :pvlheight, :pvllength, :pvlweight, :pdesurl )", 
                                   array( 
-                                  	":idproduct"  => $this->getidproduct(),
-                                  	":desproduct" => $this->getdesproduct(),
-                                  	":vlprice"    => $this->getvlprice(),
-                                  	":vlwidth"    => $this->getvlwidth(),
-                                  	":vlheight"   => $this->getvlheight(),
-                                  	":vllength"   => $this->getvllength(),
-                                  	":vlweight"   => $this->getvlweight(),
-	                                ":desurl"     => $this->getdesurl() 
+                                  	":pidproduct"  => $this->getidproduct(),
+                                  	":pdesproduct" => $this->getdesproduct(),
+                                  	":pvlprice"    => $this->getvlprice(),
+                                  	":pvlwidth"    => $this->getvlwidth(),
+                                  	":pvlheight"   => $this->getvlheight(),
+                                  	":pvllength"   => $this->getvllength(),
+                                  	":pvlweight"   => $this->getvlweight(),
+	                                ":pdesurl"     => $this->getdesurl() 
 	                            ));
 
 		$this->setData( $results[ 0 ] );
