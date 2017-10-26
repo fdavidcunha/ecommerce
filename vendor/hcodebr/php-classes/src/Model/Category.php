@@ -8,8 +8,6 @@ use \Hcode\Mailer;
 
 class Category extends Model {
 
-	protected $fields = [ "idcategory", "descategory" ];
-
 	public static function listAll()
 	{
 		$sql = new Sql();

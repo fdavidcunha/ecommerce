@@ -8,12 +8,26 @@ use \Hcode\Mailer;
 
 class Product extends Model {
 
-	protected $fields = [ "idproduct", "desproduct", "vlprice", "vlwidth", "vlheight", "vllength", "vlweight", "desurl", "desphoto" ];
-
 	public static function listAll()
 	{
 		$sql = new Sql();
 		return $sql->select( "select * from tb_products order by desproduct" );
+	}
+
+	public static function checkList( $list )
+	{
+
+		# & = indica que será manipulada a posição de memória.
+		foreach ( $list as &$row ) {
+			
+			$p = new Product();
+			$p->setData( $row );
+			$row = $p->getValues();
+
+		}
+
+		return $list;
+
 	}
 
 	public function save()

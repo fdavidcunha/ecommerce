@@ -31,6 +31,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
+
 <!--
 BODY TAG OPTIONS:
 =================
@@ -257,7 +258,7 @@ desired effect
       <ul class="sidebar-menu">
         <li class="header">HEADER</li>
         
-        <li class="treeview active">
+        <li class="treeview">
           <a href="#">
             <i class="fa fa-link"></i> 
               <span>Cadastros</span>
@@ -267,21 +268,21 @@ desired effect
           </a>
           <ul class="treeview-menu">
             
-            <li class="active">
+            <li>
               <a href="/admin/users">
                 <i class="fa fa-users"></i> 
                 <span>Usuários</span>
               </a>
             </li>
 
-            <li class="active">
+            <li>
               <a href="/admin/categories">
                 <i class="fa fa-users"></i> 
                 <span>Categorias</span>
               </a>
             </li>
 
-            <li class="active">
+            <li>
               <a href="/admin/products">
                 <i class="fa fa-users"></i> 
                 <span>Produtos</span>
