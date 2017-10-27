@@ -22,7 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect.
   -->
-  <link rel="stylesheet" href="/res/admin/dist/css/skins/skin-blue.min.css">
+  <link rel="stylesheet" href="/res/admin/dist/css/skins/skin-black.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -52,7 +52,7 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-black sidebar-mini">
 <div class="wrapper">
 
   <!-- Main Header -->
@@ -258,7 +258,7 @@ desired effect
       <ul class="sidebar-menu">
         <li class="header">HEADER</li>
         
-        <li class="treeview">
+        <li class="treeview active">
           <a href="#">
             <i class="fa fa-link"></i> 
               <span>Cadastros</span>
@@ -268,34 +268,55 @@ desired effect
           </a>
           <ul class="treeview-menu">
             
-            <li>
-              <a href="/admin/users">
-                <i class="fa fa-users"></i> 
-                <span>Usuários</span>
-              </a>
-            </li>
+              {if="$page == 'users'"}
+              <li class="active">
+                  <a href="/admin/users">
+                      <i class="fa fa-users"></i> 
+                      <span>Usuários</span>
+                  </a>
+              </li>
+              {else}
+              <li>
+                  <a href="/admin/users">
+                      <i class="fa fa-users"></i> 
+                      <span>Usuários</span>
+                  </a>
+              </li>
+              {/if}            
 
-            <li>
-              <a href="/admin/categories">
-                <i class="fa fa-users"></i> 
-                <span>Categorias</span>
-              </a>
-            </li>
+              {if="$page == 'categories'"}
+              <li class="active">
+                  <a href="/admin/categories">
+                      <i class="fa fa-users"></i> 
+                      <span>Categorias</span>
+                  </a>
+              </li>
+              {else}
+              <li>
+                  <a href="/admin/categories">
+                      <i class="fa fa-users"></i> 
+                      <span>Categorias</span>
+                  </a>
+              </li>
+              {/if}            
 
-            <li>
-              <a href="/admin/products">
-                <i class="fa fa-users"></i> 
-                <span>Produtos</span>
-              </a>
-            </li>
+              {if="$page == 'products'"}
+              <li class="active">
+                  <a href="/admin/products">
+                      <i class="fa fa-users"></i> 
+                      <span>Produtos</span>
+                  </a>
+              </li>
+              {else}
+              <li>
+                  <a href="/admin/products">
+                      <i class="fa fa-users"></i> 
+                      <span>Produtos</span>
+                  </a>
+              </li>
+              {/if}            
 
           </ul>
-        </li>
-        
-        <li>
-          <a href="#"><i class="fa fa-link"></i> 
-            <span>Another Link</span>
-          </a>
         </li>
         
         <li class="treeview">

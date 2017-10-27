@@ -29,6 +29,8 @@ class Page {
 
 		$this->tpl = new Tpl();
 
+		if (isset($this->options['page'])) $this->tpl->assign("page", $this->options['page']); 
+
 		if ($this->options['data']) $this->setData($this->options['data']);
 
 		if ($this->options['header'] === true) $this->tpl->draw("header", false);

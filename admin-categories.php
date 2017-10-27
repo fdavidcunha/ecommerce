@@ -79,16 +79,19 @@
 		exit();
 	});
 
-	// Rota para a clicar no item da lista de categorias, no rodapé do site.
-	$app->get( "/category/:idcategory", function( $idcategory ) {
+	// Rota para acessar a lista de produtos por categorias ou sem categorias.
+	$app->get( "/admin/categories/:idcategory/products", function( $idcategory ) {
+
+		User::verifyLogin();
 
 		$category = new Category();
 		$category->get( (int)$idcategory );
 
-		$page = new Page();
-		$page->setTpl( "category", [ 
-			'category' => $category->getValues(),
-			'produtos' => [] 
+		$page = new PageAdmin();
+		$page->setTpl( "categories-products", [ 
+			'category'           => $category->getValues(),
+			'productsRelated'    => [],
+			'productsNotRelared' => []
 		]);
 	});
 
