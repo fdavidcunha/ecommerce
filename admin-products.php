@@ -4,6 +4,7 @@
 	use \Hcode\Model\User;
 	use \Hcode\Model\Product;
 
+	# Rota para a lista de produtos.
 	$app->get( "/admin/products", function(){
 
 		User::verifyLogin();
@@ -15,6 +16,7 @@
 
 	});
 
+	# Rota para a página de criação do produto.
 	$app->get( "/admin/products/create", function(){
 
 		User::verifyLogin();
@@ -24,6 +26,7 @@
 
 	});
 
+	# Rota para salvar o produto.
 	$app->post( "/admin/products/create", function(){
 
 		User::verifyLogin();
@@ -37,6 +40,7 @@
 
 	});
 
+	# Rota para a página de edição do produto.
 	$app->get( "/admin/products/:idproduct", function( $idproduct ){
 
 		User::verifyLogin();
@@ -49,6 +53,7 @@
 
 	});
 
+	# Rota para salvar a edição do produto.
 	$app->post( "/admin/products/:idproduct", function( $idproduct ){
 
 		User::verifyLogin();
@@ -57,13 +62,18 @@
 		$product->get( (int)$idproduct );
 		$product->setData( $_POST );
 		$product->save();
-		$product->setPhoto( $_FILES[ "file" ] );
+		
+		if ( (int)$_FILES[ "file" ][ "size" ] > 0 ) {
+
+			$product->setPhoto( $_FILES[ "file" ] );
+		}
 
 		header( "location: /admin/products" );
 		exit();
 
 	});
 
+	# Rota para excluir o produto.
 	$app->get( "/admin/products/:idproduct/delete", function( $idproduct ){
 
 		User::verifyLogin();
