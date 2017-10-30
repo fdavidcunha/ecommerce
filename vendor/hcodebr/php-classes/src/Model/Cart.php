@@ -108,9 +108,39 @@ class Cart extends Model {
 
 	}
 
+	public function addProduct( Product $product )
+	{
 
+		$sql = new Sql();
+		$sql->query( "insert into tb_cartsproducts ( idcart, idproduct ) values ( :idcart, :idproduct", [
+			':idcart' =>$this->getidcart(),
+			'idproduct' => $product.getidproduct()
+		] )
 
+	}
 
+	public function removeProduct( Product $product, $all = false )
+	{
+
+		$sql = new Sql();
+
+		if ( $all ) {
+
+			$sql->query( "update tb_cartsproducts set dtremoved = now() where idcart = :idcart and idproduct = :idproduct and dtremoved is null", [
+				':idcart' => $this->getidcart(),
+				':idproduct' => $product->getidproduct();
+			] );
+
+		} else {
+
+			$sql->query( "update tb_cartsproducts set dtremoved = now() where idcart = :idcart and idproduct = :idproduct and dtremoved is null limit 1", [
+				':idcart' => $this->getidcart(),
+				':idproduct' => $product->getidproduct();
+			] );
+
+		}
+
+	}
 
 }
 
