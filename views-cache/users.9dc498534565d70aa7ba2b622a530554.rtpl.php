@@ -4,7 +4,7 @@
 <section class="content-header">
   
   <h1>
-    Lista de Usuários
+    Usuários
   </h1>
   
   <ol class="breadcrumb">
@@ -29,7 +29,9 @@
   		<div class="box box-primary">
             
             <div class="box-header">
-              <a href="/admin/users/create" class="btn btn-success">Novo</a>
+              <a href="/admin/users/create" class="btn btn-success">
+                <i class="fa fa-plus"></i> Incluir
+              </a>
             </div>
 
             <div class="box-body no-padding">
@@ -54,7 +56,7 @@
                     <td><?php if( $value1["inadmin"] == 1 ){ ?>Sim<?php }else{ ?>Não<?php } ?></td>
                     <td>
                       <a href="/admin/users/<?php echo htmlspecialchars( $value1["iduser"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs">
-                        <i class="fa fa-edit"></i> Editar
+                        <i class="fa fa-edit"></i> Alterar
                       </a>
                       <a href="/admin/users/<?php echo htmlspecialchars( $value1["iduser"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs">
                         <i class="fa fa-trash"></i> Excluir

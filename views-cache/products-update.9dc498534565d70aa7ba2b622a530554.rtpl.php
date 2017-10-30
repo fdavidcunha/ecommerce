@@ -3,7 +3,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Lista de Produtos
+    Produtos
   </h1>
 </section>
 
@@ -14,7 +14,7 @@
   	<div class="col-md-12">
   		<div class="box box-primary">
         <div class="box-header with-border">
-          <h3 class="box-title">Editar Produto</h3>
+          <h3 class="box-title">Alterar Produto</h3>
         </div>
         <!-- /.box-header -->
         <!-- form start -->
@@ -57,7 +57,13 @@
           </div>
           <!-- /.box-body -->
           <div class="box-footer">
-            <button type="submit" class="btn btn-primary">Salvar</button>
+            <button type="submit" class="btn btn-success">
+              <i class="fa fa-save"></i> Salvar
+            </button>
+
+            <a href="/admin/products" class="btn btn-primary">
+              <i class="fa fa-undo"></i> Voltar
+            </a>
           </div>
         </form>
       </div>

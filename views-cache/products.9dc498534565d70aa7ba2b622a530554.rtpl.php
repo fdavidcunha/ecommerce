@@ -3,11 +3,17 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Lista de Produtos
+    Produtos
   </h1>
   <ol class="breadcrumb">
-    <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active"><a href="/admin/products">Produtos</a></li>
+    <li>
+      <a href="/admin">
+        <i class="fa fa-dashboard"></i> Home
+      </a>
+    </li>
+    <li class="active">
+      <a href="/admin/products">Produtos</a>
+    </li>
   </ol>
 </section>
 
@@ -19,7 +25,9 @@
   		<div class="box box-primary">
             
             <div class="box-header">
-              <a href="/admin/products/create" class="btn btn-success">Novo</a>
+              <a href="/admin/products/create" class="btn btn-success">
+                <i class="fa fa-plus"></i> Incluir
+              </a>
             </div>
 
             <div class="box-body no-padding">
@@ -38,7 +46,6 @@
                 </thead>
                 <tbody>
                   <?php $counter1=-1;  if( isset($products) && ( is_array($products) || $products instanceof Traversable ) && sizeof($products) ) foreach( $products as $key1 => $value1 ){ $counter1++; ?>
-
                   <tr>
                     <td><?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td><?php echo htmlspecialchars( $value1["desproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
@@ -48,12 +55,15 @@
                     <td><?php echo htmlspecialchars( $value1["vllength"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td><?php echo htmlspecialchars( $value1["vlweight"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
                     <td>
-                      <a href="/admin/products/<?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-                      <a href="/admin/products/<?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+                      <a href="/admin/products/<?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs">
+                        <i class="fa fa-edit"></i> Alterar
+                      </a>
+                      <a href="/admin/products/<?php echo htmlspecialchars( $value1["idproduct"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs">
+                        <i class="fa fa-trash"></i> Excluir
+                      </a>
                     </td>
                   </tr>
                   <?php } ?>
-
                 </tbody>
               </table>
             </div>
