@@ -3,6 +3,7 @@
 	use \Hcode\Page;
 	use \Hcode\Model\Product;
 	use \Hcode\Model\Category;
+	use \Hcode\Model\Cart;
 
 	/* Rota para a index do site */
 	$app->get('/', function() {
@@ -51,5 +52,14 @@
 			'categories' => $product->getCategories()
 		]);
 	});
+
+	$app->get( "/cart", function(){
+
+		$cart = Cart::getFromSession();
+
+		$page = new Page();
+		$page->setTpl( "cart" );
+
+	} )
 
 ?>
