@@ -95,7 +95,7 @@ class Cart extends Model {
 			                                           :iduser, 
 			                                           :derzipcode, 
 			                                           :vlfreight, 
-			                                           :nrdays)", [
+			                                           :nrdays )", [
 			':idcart'       => $this->getidcart(),
 			':dessessionid' => $this->getdessessionid(),
 			':iduser'       => $this->getiduser(),
@@ -113,9 +113,9 @@ class Cart extends Model {
 
 		$sql = new Sql();
 		$sql->query( "insert into tb_cartsproducts ( idcart, idproduct ) values ( :idcart, :idproduct", [
-			':idcart' =>$this->getidcart(),
-			'idproduct' => $product.getidproduct()
-		] )
+			':idcart'   => $this->getidcart(),
+			'idproduct' => $product->getidproduct()
+		]);
 
 	}
 
@@ -127,15 +127,15 @@ class Cart extends Model {
 		if ( $all ) {
 
 			$sql->query( "update tb_cartsproducts set dtremoved = now() where idcart = :idcart and idproduct = :idproduct and dtremoved is null", [
-				':idcart' => $this->getidcart(),
-				':idproduct' => $product->getidproduct();
+				':idcart'    => $this->getidcart(),
+				':idproduct' => $product->getidproduct()
 			] );
 
 		} else {
 
 			$sql->query( "update tb_cartsproducts set dtremoved = now() where idcart = :idcart and idproduct = :idproduct and dtremoved is null limit 1", [
-				':idcart' => $this->getidcart(),
-				':idproduct' => $product->getidproduct();
+				':idcart'    => $this->getidcart(),
+				':idproduct' => $product->getidproduct()
 			] );
 
 		}
