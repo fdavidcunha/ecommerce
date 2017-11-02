@@ -16,5 +16,19 @@
 	require_once( "admin-categories.php" );
 	require_once( "admin-products.php" );
 
+	$app->notFound( function() use ( $app ) {
+
+		http_response_code( 404 );
+  		echo file_get_contents( 'res/404.html' );
+  		exit;
+	});
+
+	$app->notFound( function() use ( $app ) {
+
+		http_response_code( 500 );
+  		echo file_get_contents( 'res/404.html' );
+  		exit;
+	});
+
 	$app->run();
  ?>
