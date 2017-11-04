@@ -4,6 +4,7 @@
 	require_once("vendor/autoload.php");
 
 	use \Slim\Slim;
+	use \Slim\App;
 
 	$app = new Slim();
 
@@ -29,6 +30,19 @@
   		echo file_get_contents( 'res/404.html' );
   		exit;
 	});
+
+	/*$app_ = new \Slim\App();
+
+	// get the app's di-container
+	$c = $app_->getContainer();
+	$c[ 'phpErrorHandler' ] = function ($c) {
+    	return function( $request, $response, $error ) use ( $c ) {
+        	return $c[ 'response' ]
+            	->withStatus( 500 )
+            	->withHeader( 'Content-Type', 'text/html' )
+            	->write( 'Vish... algo deu errado!' );
+    	};
+	};*/
 
 	$app->run();
  ?>
