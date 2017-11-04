@@ -266,8 +266,11 @@ class Cart extends Model {
 
 			return $result;
 
+		} else {
+
+			
 		}
-		
+
 	}
 
 	public static function formatValueToDecimal( $value ) : float
