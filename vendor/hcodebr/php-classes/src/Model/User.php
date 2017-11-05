@@ -142,7 +142,7 @@ class User extends Model {
 		$sql = new Sql();
 
 		
-      	echo ":desperson " . utf8_decode( $this->getdesperson() );
+      	/*echo ":desperson " . utf8_decode( $this->getdesperson() );
       	echo "<br>";
       	echo ":deslogin " . $this->getdeslogin();
       	echo "<br>";
@@ -153,7 +153,7 @@ class User extends Model {
         echo ":nrphone " . $this->getnrphone();
       	echo "<br>";
         echo ":inadmin " . $this->getinadmin(); 
-        exit;
+        exit;*/
 
 
 
