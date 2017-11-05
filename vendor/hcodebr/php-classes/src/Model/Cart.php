@@ -173,8 +173,6 @@ class Cart extends Model {
 		                    b.desurl
 		           order by b.desproduct";
 
-		
-
 		$sql = new Sql();
 		
 		$retorno = $sql->select( $consulta, [ ':idcart' => $this->getidcart() ] );
@@ -221,11 +219,17 @@ class Cart extends Model {
 
 		if ( $totals[ 'nrqtd' ] > 0 ){
 
-			# Largura mínima exigida pelos correios: 2cm;
+			# Altura mínima exigida pelos correios: 2cm;
 			if ( $totals[ 'vlheight' ] < 2 ) $totals[ 'vlheight' ] = 2;
 			
 			# Cumprimento mínimo exigido pelos correios: 16cm.
 			if ( $totals[ 'vllength' ] < 16 ) $totals[ 'vllength' ] = 16;
+
+			# Largura mínima exigida pelos correios: 11cm.
+			if ( $totals[ 'vlwidth' ] < 11 ) $totals[ 'vlwidth' ] = 11;
+
+			# Valor declarado mínimo exigido pelos correios: R$ 18.00.
+			if ( $totals[ 'vlprice' ] < 18 ) $totals[ 'vlprice' ] = 18;
 
 			$qs = http_build_query( [
 				'nCdEmpresa'          => '',
@@ -332,8 +336,22 @@ class Cart extends Model {
 
 		$totals = $this->getProductsTotals();
 
+		$products = $this->getProducts();
+
+		if ( count( $products ) == 0 ) {
+		     $this->setnrdays( NULL );
+		     $this->setvlfreight( 0 );
+		}
+
 		$this->setvlsubtotal( $totals[ 'vlprice' ] );
 		$this->setvltotal( $totals[ 'vlprice' ] + $this->getvlfreight() );
+
+	}
+
+	public static function removeToSession()
+	{
+	   
+	   $_SESSION[ Cart::SESSION ] = NULL;
 
 	}
 
