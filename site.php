@@ -275,6 +275,7 @@
 				"name" => $user[ "desperson" ],
 				"code" => $_GET[ "code" ]
 			) );
+
 	});
 
 	$app->post( "/forgot/reset", function(){
@@ -290,6 +291,74 @@
 		$page = new Page();
 
 		$page->setTpl( "forgot-reset-success" );
+
 	});
+
+	$app->get( "/profile", function() {
+
+		User::verifyLogin( false );
+
+		$user = User::getFromSession();
+
+		$page = new Page();
+
+		$page->setTpl( "profile", [
+			'user'         => $user->getValues(),
+			'profileMsg'   => User::getSuccess(),
+			'profileError' => User::getError()
+		] );
+
+	} );
+
+	$app->post( "/profile", function() {
+
+		User::verifyLogin( false );
+
+		$user = User::getFromSession();
+
+		if ( !isset( $_POST[ 'desperson' ] ) || $_POST[ 'desperson' ] === '' ){
+
+			User::setError( "Preencha o seu nome." );
+
+			header( 'location: /profile' );
+			exit();
+
+		}
+
+		if ( !isset( $_POST[ 'desemail' ] ) || $_POST[ 'desemail' ] === '' ){
+
+			User::setError( "Preencha o seu e-mail." );
+
+			header( 'location: /profile' );
+			exit();
+
+		}
+
+		if ( $_POST[ 'desemail' ] !== $user->getdesemail() ){
+
+			if ( User::checkLoginExist( $_POST[ 'desemail' ] ) === true ){
+
+				User::setError( "Endereço de e-mail já utilizado por outro usuário." );		
+
+				header( 'location: /profile' );
+				exit();
+
+			}
+		}
+
+		# Garantindo que o usuário não alterou de alguma forma o conteúdo dos campos abaixo.
+		$_POST[ 'inadmin' ]     = $user->getinadmin();
+		$_POST[ 'despassword' ] = $user->getinadmin();
+		$_POST[ 'deslogin' ]    = $_POST[ 'desemail' ];
+
+		$user->setData( $_POST );
+		$user->save();
+
+		User::setSuccess( "Informações atualizadas com sucesso!" );
+
+		header( 'location: /profile' );
+		exit();
+
+	} );
 
 ?>
