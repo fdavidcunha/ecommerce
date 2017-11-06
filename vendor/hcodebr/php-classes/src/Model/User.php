@@ -176,16 +176,26 @@ class User extends Model {
 
 	}
 
-	public function update()
+	public function update( $changePassword = true )
 	{
 
+		if ( $changePassword ) {
+
+			$password = password_hash( $this->getdespassword(), PASSWORD_DEFAULT, [ "cost" => 12 ] );
+			
+		} else {
+
+			$password = $_POST[ 'despassword' ];
+
+		}
+
 		$sql = new Sql();
-		$results = $sql->select( "CALL sp_usersupdate_save(:iduser, :desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", 
+		$results = $sql->select( "CALL sp_usersupdate_save( :iduser, :desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin )", 
                                   array( 
                                   	":iduser"      => $this->getiduser(),
                                   	":desperson"   => utf8_decode( $this->getdesperson() ),
 	                                ":deslogin"    => $this->getdeslogin(),
-	                                ":despassword" => password_hash( $this->getdespassword(), PASSWORD_DEFAULT, [ "cost" => 12 ] ),
+	                                ":despassword" => $password,
 	                                ":desemail"    => $this->getdesemail(),
 	                                ":nrphone"     => $this->getnrphone(),
 	                                ":inadmin"     => $this->getinadmin() ) 
