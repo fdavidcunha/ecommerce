@@ -142,20 +142,11 @@ class User extends Model {
 		$sql = new Sql();
 
 		
-      	/*echo ":desperson " . utf8_decode( $this->getdesperson() );
-      	echo "<br>";
-      	echo ":deslogin " . $this->getdeslogin();
-      	echo "<br>";
-        echo ":despassword " . password_hash( $this->getdespassword(), PASSWORD_DEFAULT, [ "cost" => 12 ] );
-      	echo "<br>";
-        echo ":desemail " . $this->getdesemail();
-      	echo "<br>";
-        echo ":nrphone " . $this->getnrphone();
-      	echo "<br>";
-        echo ":inadmin " . $this->getinadmin(); 
-        exit;*/
+        if ( $this->getnrphone() == '' ) {
 
+        	$this->setnrphone( null );
 
+        }
 
 		$results = $sql->select( "CALL sp_users_save(:desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", 
                                   array( 
@@ -211,7 +202,7 @@ class User extends Model {
 
 	}
 
-	public static function getForgot( $email ) 
+	public static function getForgot( $email, $inadmin = true ) 
 	{
 		$comando = "select * from tb_persons a inner join tb_users b using( idperson ) where a.desemail = :email";
 
@@ -246,9 +237,17 @@ class User extends Model {
 				// Encriptando um link para recuperação de senha.
 				$code = User::encrypt_decrypt( 'encrypt', $data_recovery[ "idrecovery" ] );
 
-				$link = "http://www.hcodecommerce.com.br/admin/forgot/reset?code=$code";
+				if ( $inadmin === true ) {
 
-				$mailer = new Mailer( $data[ "desemail" ], $data[ "desperson" ], "Redefinição de senha", "forgot", 
+					$link = "http://www.hcodecommerce.com.br/admin/forgot/reset?code=$code";
+
+				} else {
+
+					$link = "http://www.hcodecommerce.com.br/forgot/reset?code=$code";
+
+				}
+
+				$mailer = new Mailer( $data[ "desemail" ], $data[ "desperson" ], utf8_decode( "Redefinição de senha" ), "forgot", 
 					                  array( "name" => $data[ "desperson" ],
 					                  		 "link" => $link
 					                  ));
