@@ -316,6 +316,22 @@ desired effect
               </li>
               {/if}            
 
+              {if="$page == 'orders'"}
+              <li class="active">
+                  <a href="/admin/orders">
+                      <i class="fa fa-shopping-cart"></i> 
+                      <span>Pedidos</span>
+                  </a>
+              </li>
+              {else}
+              <li>
+                  <a href="/admin/orders">
+                      <i class="fa fa-shopping-cart"></i> 
+                      <span>Pedidos</span>
+                  </a>
+              </li>
+              {/if}            
+
           </ul>
         </li>
         

@@ -3,7 +3,7 @@
 namespace Hcode\Model;
 
 use \Hcode\DB\Sql;
-use \Hcode\Model;
+use \Hcode\Model\Cart;
 
 class Order extends Model {
 
@@ -57,7 +57,39 @@ class Order extends Model {
 		}
 
 	}
-	
+
+	public static function listAll()
+	{
+
+		$sql = new Sql();
+
+		return $sql->select(     "select * 
+			                        from tb_orders       a
+			                  inner join tb_ordersstatus b using( idstatus )
+			                  inner join tb_carts        c using( idcart )
+			                  inner join tb_users        d on d.iduser = a.iduser
+			                  inner join tb_addresses    e using ( idaddress )
+			                  inner join tb_persons      f on f.idperson = d.idperson
+			                    order by a.dtregister DESC" );
+	}
+
+	public function delete()
+	{
+		$sql = new Sql();
+		$sql->query( "delete from tb_orders where idorder = :idorder", 
+			         [ ':idorder' => $this->getidorder() ] );
+
+     }
+
+	public function getCart()
+	{
+
+		$cart = new Cart();
+		$cart->get( (int)$this->getidcart() );
+
+		return $cart;
+	}
+
 }
 
 ?>

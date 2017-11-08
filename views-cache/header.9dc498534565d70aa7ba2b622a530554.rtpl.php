@@ -316,6 +316,22 @@ desired effect
               </li>
               <?php } ?>            
 
+              <?php if( $page == 'orders' ){ ?>
+              <li class="active">
+                  <a href="/admin/orders">
+                      <i class="fa fa-shopping-cart"></i> 
+                      <span>Pedidos</span>
+                  </a>
+              </li>
+              <?php }else{ ?>
+              <li>
+                  <a href="/admin/orders">
+                      <i class="fa fa-shopping-cart"></i> 
+                      <span>Pedidos</span>
+                  </a>
+              </li>
+              <?php } ?>            
+
           </ul>
         </li>
         
