@@ -42,6 +42,33 @@
 		$order->setidstatus( (int)$_POST[ 'idstatus' ] );
 		$order->save();
 		
+		// --------------------------------------------------------------- //
+		// --- Enviando e-mail para o usuário com a situação do pedido. ---//
+		// --------------------------------------------------------------- //
+
+		// Encriptando um link para recuperação de senha.
+		/*$code = User::encrypt_decrypt( 'encrypt', $data_recovery[ "idrecovery" ] );
+
+		if ( $inadmin === true ) {
+
+			$link = "http://www.hcodecommerce.com.br/admin/forgot/reset?code=$code";
+
+		} else {
+
+			$link = "http://www.hcodecommerce.com.br/forgot/reset?code=$code";
+
+		}
+
+		$mailer = new Mailer( $data[ "desemail" ], $data[ "desperson" ], utf8_decode( "Redefinição de senha" ), "forgot", 
+			                  array( "name" => $data[ "desperson" ],
+			                  		 "link" => $link
+			                  ));
+		$mailer->send();*/
+
+		// --------------------------------------------------------------- //
+		// ------------------- Fim do envio de e-mail. --------------------//
+		// --------------------------------------------------------------- //
+
 		Order::setSuccess( "Situação do pedido atualizada com sucesso!" );
 
 		header( "location: /admin/orders/" . $idorder . "/status" );

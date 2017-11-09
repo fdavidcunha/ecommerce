@@ -147,9 +147,9 @@
                     <i class="fa fa-barcode"></i> Boleto
                 </button>
 
-                    <a href="/admin/orders" class="btn btn-default pull-left" style="margin-left: 5px;">
-                        <i class="fa fa-undo"></i> Voltar
-                    </a>
+                <a href="/admin/orders" class="btn btn-default pull-left" style="margin-left: 5px;">
+                    <i class="fa fa-undo"></i> Voltar
+                </a>
 
                 <button type="button" onclick="window.print()" class="btn btn-primary pull-right" style="margin-right: 5px;">
                     <i class="fa fa-print"></i> Imprimir

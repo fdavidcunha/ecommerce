@@ -133,8 +133,10 @@ class User extends Model {
 
 	public static function listAll()
 	{
+		
 		$sql = new Sql();
 		return $sql->select( "select * from tb_users u inner join tb_persons p using(idperson) order by p.desperson" );
+
 	}
 
 	public function save()
@@ -454,6 +456,58 @@ class User extends Model {
 		return $results;
 
 	}
+
+	// Query para paginação.
+	public static function getPage( $page = 1, $itensPerPage = 10 )
+	{
+
+		$start = ( $page - 1 ) * $itensPerPage;
+
+		$sql = new Sql();
+
+		$results = $sql->select(     "select SQL_CALC_FOUND_ROWS * 
+			                            from tb_users a
+			                      inner join tb_persons b
+			                           using ( idperson )
+	                           		order by b.desperson
+			                           limit $start, $itensPerPage;" );
+
+		$resultTotal = $sql->select( "select FOUND_ROWS() as nrtotal;" );
+
+		return [ 'data'  => $results,
+				 'total' => (int)$resultTotal[ 0 ][ "nrtotal" ],
+				 'pages' => ceil( (int)$resultTotal[ 0 ][ "nrtotal" ] / $itensPerPage ) ];
+
+	}
+
+	// Query para paginação com busca.
+	public static function getPageSearch( $search, $page = 1, $itensPerPage = 10 )
+	{
+
+		$start = ( $page - 1 ) * $itensPerPage;
+
+		$sql = new Sql();
+
+		$results = $sql->select(     "select SQL_CALC_FOUND_ROWS * 
+			                            from tb_users a
+			                      inner join tb_persons b
+			                           where b.desperson like :search
+			                              or b.desemail like :search
+			                              or a.deslogin like :search
+			                           using ( idperson )
+	                           		order by b.desperson
+			                           limit $start, $itensPerPage;", [
+			                     	':search' => '%' . $search . '%'
+			                      ] );
+
+		$resultTotal = $sql->select( "select FOUND_ROWS() as nrtotal;" );
+
+		return [ 'data'  => $results,
+				 'total' => (int)$resultTotal[ 0 ][ "nrtotal" ],
+				 'pages' => ceil( (int)$resultTotal[ 0 ][ "nrtotal" ] / $itensPerPage ) ];
+
+	}
+
 
 }
 

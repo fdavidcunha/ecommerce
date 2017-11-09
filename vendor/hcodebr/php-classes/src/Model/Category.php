@@ -10,8 +10,10 @@ class Category extends Model {
 
 	public static function listAll()
 	{
+		
 		$sql = new Sql();
 		return $sql->select( "select * from tb_categories order by descategory" );
+		
 	}
 
 	public function save()
@@ -100,7 +102,7 @@ class Category extends Model {
 
 	}
 
-	public function getProductsPage( $page = 1, $itensPerPage = 8 )
+	public function getProductsPage( $page = 1, $itensPerPage = 10 )
 	{
 
 		$start = ( $page - 1 ) * $itensPerPage;
