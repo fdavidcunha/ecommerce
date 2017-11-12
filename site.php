@@ -243,13 +243,39 @@
 			'idaddress' => $address->getidaddress(),
 			'iduser'    => $user->getiduser(),
 			'idstatus'  => OrderStatus::AGUARDANDO_PAGAMENTO,
-			'vltotal'   =>  + $cart->getvltotal()
+			'vltotal'   => $cart->getvltotal()
 		] );
 
 		$order->save();
 
-		header( "location: /order/".$order->getidorder() );
+		header( "location: /order/".$order->getidorder()."/pagseguro" );
 		exit();
+
+	} );
+
+	$app->get( "/order/:idorder/pagseguro", function( $idorder ) {
+
+		User::verifyLogin( false );
+
+		$order = new Order();
+		$order->get( (int)$idorder );
+
+		$cart = $order->getCart();
+
+		$page = new Page( [
+			'header' => false,
+			'footer' => false
+		] );
+
+		$page->setTpl( "payment-pagseguro", [
+			'order'    => $order->getValues(),
+			'cart'     => $cart->getValues(),
+			'products' => $cart->getProducts(),
+			'phone' => [
+				'areaCode' => substr( $order->getnrphone(), 0, 2 ),
+				'number'   => substr( $order->getnrphone(), 0, strlen( $order->getnrphone() ) )
+				]
+		] );
 
 	} );
 

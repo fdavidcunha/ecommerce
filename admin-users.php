@@ -14,7 +14,7 @@
 		$page->setTpl( "users-password", [
 			"user"       => $user->getValues(),
 			'msgError'   => User::getError(),
-			'msgSussess' => User::getSussess()
+			'msgSuccess' => User::getSuccess()
 		] );
 	
 	});
