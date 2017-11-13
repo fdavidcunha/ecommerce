@@ -23,7 +23,7 @@
 
 		}
 
-		$page = new Page( [ "footer" => false ] );
+		$page = new Page();
 
 		$page->setTpl( "payment", [
 			"order"    => $order->getValues(),

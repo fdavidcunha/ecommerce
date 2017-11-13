@@ -73,7 +73,10 @@
    
     <!-- Latest jQuery form server -->
     <script src="https://code.jquery.com/jquery.min.js"></script>
-    
+
+    <!-- Biblioteca JS que controla templates -->
+    <script src="/res/site/js/handlebars-v4.0.11.js"></script>
+        
     <!-- Bootstrap JS form CDN -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     
@@ -90,5 +93,25 @@
     <!-- Slider -->
     <script type="text/javascript" src="/res/site/js/bxslider.min.js"></script>
 	<script type="text/javascript" src="/res/site/js/script.slider.js"></script>
+
+    <script type="text/javascript">
+        
+        $( function (){
+
+            // Verificando se a variável scripts é uma instância de um array.
+            if ( scripts instanceof Array ){
+
+                // Percorrendo o array para executar as funções.
+                $.each( scripts, function( index, fn ){
+
+                    // Verificando se fn é uma função e executando a mesma.
+                    if ( typeof fn === 'function' ) fn();
+                });
+            }
+
+        });
+
+    </script>
+
   </body>
 </html>

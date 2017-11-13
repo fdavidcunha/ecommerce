@@ -248,6 +248,13 @@
 </div>
 
 <script id="tpl-payment-debit" type="text/x-handlebars-template">
+    
+    <!-- text/x-handlebars-template 
+       -> Biblioteca JS que controla templates 
+       -> Utiliza o arquivo handlebars-v4.0.11.js
+       -> Tem como dependência o JQuery, logo, esse JS tem que ser adicionado após o JQuery.
+    -->
+    
     <div class="form-check" style="padding: 10px;">
         <label class="form-check-label">
             <input class="form-check-input" type="radio" name="bank" value="{{value}}" checked>
@@ -273,4 +280,88 @@
 
 <script type="text/javascript">
     PagSeguroDirectPayment.setSessionId( '<?php echo htmlspecialchars( $pagseguro["id"], ENT_COMPAT, 'UTF-8', FALSE ); ?>' );
+</script>
+
+<script type="text/javascript">
+
+    // Variável scripts está definida no header.html. Esta função será executada no footer.html.
+    scripts.push( function() {
+
+        // Função para exibir o erro.
+        function showError( error )
+        {
+
+            // Pegando o objeto pelo ID dele e colocando o texto dentro.
+            $( "#alert-error span.msg" ).text( error );
+
+            // Removendo a classe que deixa o componente invisível.
+            $( "#alert-error" ).removeClass( "hide" );
+
+        }
+
+        PagSeguroDirectPayment.getPaymentMethods({
+            
+            amount: parseFloat( "<?php echo htmlspecialchars( $order["vltotal"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" ),
+            
+            success: function(response) {
+
+                // Criando os templates dos meios de pagamento.
+                var tplDebit  = Handlebars.compile( $( "#tpl-payment-debit" ).html() );
+                var tplCredit = Handlebars.compile( $( "#tpl-payment-credit" ).html() );
+
+                // Varrendo as formas de pagamento para débito online.
+                $.each( response.paymentMethods.ONLINE_DEBIT.options, function( index, option ) {
+
+                    $( "#tab-debito .contents" ).append( tplDebit( {
+                        value:option.name,
+                        image:option.images.SMALL.path,
+                        text:option.displayName
+                    }));
+
+                });
+
+                // Varrendo bandeiras de cartões de crédito.
+                $.each( response.paymentMethods.CREDIT_CARD.options, function( index, option ) {
+
+                    $( "#tab-credito .contents" ).append( tplCredit( {
+                        name:option.name,
+                        image:option.images.SMALL.path
+                    }));
+
+                });
+
+                // Escondendo o icone load;
+                $( "#loading" ).hide();
+
+                // Selecionando o link da primeira aba dos meios de pagamento.
+                $( "#tabs-methods .nav-link:first" ).tab( "show" );
+
+                // Exibindo os paines com as formas de pagamento.
+                $( "#payment-methods" ).removeClass( "hide" );
+
+            },
+
+            error: function(response) {
+                
+                // Array de erros retornados.
+                var errors = [];
+
+                // Varrendo os erros retornados para exibir para o usuário.
+                for ( var code in response.errors )
+                {
+                    errors.push( response.errors[ code ] );
+                }
+
+                showError( errors.toString() );
+
+            },
+
+            complete: function(response) {
+                //meios de pagamento disponíveis
+
+            }
+        });    
+
+    });
+
 </script>
