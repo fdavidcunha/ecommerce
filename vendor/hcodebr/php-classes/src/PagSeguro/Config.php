@@ -17,6 +17,12 @@
 		const PRODUCTION_TOKEN    = 'F80BD77AC0FB45E9A252BEC4E9AFA579';
 		const PRODUCTION_SESSIONS = 'https://ws.pagseguro.uol.com.br/v2/sessions';
 		const PRODUCTION_URL_JS   = 'https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js';
+		
+		// Máximo de parcelas sem juros.
+		const MAX_INSTALLMENT_NO_INTEREST = 6;
+
+		// Máximo de parcelas.
+		const MAX_INSTALLMENT = 10;
 
 		public static function getAuthentication()
 		{

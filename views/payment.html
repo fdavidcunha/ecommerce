@@ -379,6 +379,25 @@
                         
                         $( "#brand_field" ).val( response.brand.name );
 
+                        PagSeguroDirectPayment.getInstallments( {
+
+                            amount: parseFloat( "{$order.vltotal}" ),
+                            
+                            brand: response.brand.name,
+                            
+                            maxInstallmentNoInterest: parseInt(),
+                            success: function(response) {
+                                //opções de parcelamento disponível
+                            },
+                            error: function(response) {
+                                //tratamento do erro
+                            },
+                            complete: function(response) {
+                                //tratamento comum para todas chamadas
+                            }
+
+                        });        
+
                     },
                     error: function(response) {
 
