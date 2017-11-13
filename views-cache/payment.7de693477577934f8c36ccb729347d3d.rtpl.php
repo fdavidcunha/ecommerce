@@ -246,6 +246,7 @@
         </div>
     </div>
 </div>
+
 <script id="tpl-payment-debit" type="text/x-handlebars-template">
     <div class="form-check" style="padding: 10px;">
         <label class="form-check-label">
@@ -255,13 +256,21 @@
         </label>
     </div>
 </script>
+
 <script id="tpl-payment-credit" type="text/x-handlebars-template">
     <img src="https://stc.pagseguro.uol.com.br/{{image}}" alt="{{name}}" style="float:left; margin-right:4px;">
 </script>
+
 <script id="tpl-installment-free" type="text/x-handlebars-template">
     <option>{{quantity}}x de R${{installmentAmount}} sem juros</option>
 </script>
+
 <script id="tpl-installment" type="text/x-handlebars-template">
     <option>{{quantity}}x de R${{installmentAmount}} com juros (R${{totalAmount}})</option>
 </script>
+
 <script src="<?php echo htmlspecialchars( $pagseguro["urlJS"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"></script>
+
+<script type="text/javascript">
+    PagSeguroDirectPayment.setSessionId( '<?php echo htmlspecialchars( $pagseguro["id"], ENT_COMPAT, 'UTF-8', FALSE ); ?>' );
+</script>

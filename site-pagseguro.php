@@ -2,9 +2,9 @@
 	
 	use \Hcode\Page;
 	use \Hcode\Model\User;
-	use \GuzzleHttp\Client;
 	use \Hcode\PagSeguro\Config;
 	use \Hcode\Model\Order;
+	use \Hcode\PagSeguro\Transporter;
 
 	# Rota para o leiaute de pagamento.
 	$app->get( '/payment', function() {
@@ -30,14 +30,15 @@
 			"msgError" => Order::getError(),
 			"years"    => $years,
 			"pagseguro" => [
-				"urlJS" => Config::getUrlJS()
+				"urlJS" => Config::getUrlJS(),
+				"id"    => Transporter::createSession()
 			]
 		]);
 
 	} );
 
-	// Rota para obter uma sessão com o pagseguro.
-	$app->get( '/payment/pagseguro', function() {
+	// Rota para obter uma sessão com o pagseguro. Apenas para testes.
+	/*$app->get( '/payment/pagseguro', function() {
 
 		$client = new Client();
 
@@ -46,6 +47,6 @@
 		
 		echo $res->getBody()->getContents();
 
-	} );
+	} );*/
 
 ?>
