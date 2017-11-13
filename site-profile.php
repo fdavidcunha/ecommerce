@@ -1,282 +1,185 @@
 <?php
 
-use Hcode\Page;
-use Hcode\Model\User;
-use Hcode\Model\Order;
-use Hcode\Model\Cart;
+	use Hcode\Page;
+	use Hcode\Model\User;
+	use Hcode\Model\Order;
+	use Hcode\Model\Cart;
 
-$app->get("/profile", function(){
+	$app->get( "/profile", function() {
 
-	User::verifyLogin(false);
+		User::verifyLogin( false );
 
-	$user = User::getFromSession();
+		$user = User::getFromSession();
 
-	$page = new Page();
+		$page = new Page();
 
-	$page->setTpl("profile", [
-		'user'=>$user->getValues(),
-		'profileMsg'=>User::getSuccess(),
-		'profileError'=>User::getError()
-	]);
+		$page->setTpl( "profile", [
+			'user'         => $user->getValues(),
+			'profileMsg'   => User::getSuccess(),
+			'profileError' => User::getError()
+		] );
 
-});
+	} );
 
-$app->post("/profile", function(){
+	$app->post( "/profile", function() {
 
-	User::verifyLogin(false);
+		User::verifyLogin( false );
 
-	if (!isset($_POST['desperson']) || $_POST['desperson'] === '') {
-		User::setError("Preencha o seu nome.");
-		header('Location: /profile');
-		exit;
-	}
+		$user = User::getFromSession();
 
-	if (!isset($_POST['desemail']) || $_POST['desemail'] === '') {
-		User::setError("Preencha o seu e-mail.");
-		header('Location: /profile');
-		exit;
-	}
+		if ( !isset( $_POST[ 'desperson' ] ) || $_POST[ 'desperson' ] === '' ){
 
-	$user = User::getFromSession();
+			User::setError( "Preencha o seu nome." );
 
-	if ($_POST['desemail'] !== $user->getdesemail()) {
-
-		if (User::checkLoginExists($_POST['desemail']) === true) {
-
-			User::setError("Este endereço de e-mail já está cadastrado.");
-			header('Location: /profile');
-			exit;
+			header( 'location: /profile' );
+			exit();
 
 		}
 
-	}
+		if ( !isset( $_POST[ 'desemail' ] ) || $_POST[ 'desemail' ] === '' ){
 
-	$_POST['inadmin'] = $user->getinadmin();
-	$_POST['despassword'] = $user->getdespassword();
-	$_POST['deslogin'] = $_POST['desemail'];
+			User::setError( "Preencha o seu e-mail." );
 
-	$user->setData($_POST);
+			header( 'location: /profile' );
+			exit();
 
-	$user->save();
+		}
 
-	User::setSuccess("Dados alterados com sucesso!");
+		if ( $_POST[ 'desemail' ] !== $user->getdesemail() ){
 
-	header('Location: /profile');
-	exit;
+			if ( User::checkLoginExist( $_POST[ 'desemail' ] ) === true ){
 
-});
-$app->get("/profile/orders", function(){
+				User::setError( "Endereço de e-mail já utilizado por outro usuário." );		
 
-	User::verifyLogin(false);
+				header( 'location: /profile' );
+				exit();
 
-	$user = User::getFromSession();
+			}
+		}
 
-	$page = new Page();
+		# Garantindo que o usuário não alterou de alguma forma o conteúdo dos campos abaixo.
+		$_POST[ 'iduser' ]      = $user->getiduser();
+		$_POST[ 'inadmin' ]     = $user->getinadmin();
+		$_POST[ 'despassword' ] = $user->getdespassword();
+		$_POST[ 'deslogin' ]    = $_POST[ 'desemail' ];
 
-	$page->setTpl("profile-orders", [
-		'orders'=>$user->getOrders()
-	]);
+		$user->setData( $_POST );
+		$user->update( false );
 
-});
+		$_SESSION[ User::SESSION ] = $user->getValues();
 
-$app->get("/profile/orders/:idorder", function($idorder){
+		User::setSuccess( "Informações atualizadas com sucesso!" );
 
-	User::verifyLogin(false);
+		header( 'location: /profile' );
+		exit();
 
-	$order = new Order();
+	} );
 
-	$order->get((int)$idorder);
+	$app->get( "/profile/orders", function() {
 
-	$cart = new Cart();
+		User::verifyLogin( false );
 
-	$cart->get((int)$order->getidcart());
+		$user = User::getFromSession();
 
-	$cart->getCalculateTotal();
+		$page = new Page();
+		$page->setTpl( "profile-orders", [
+			'orders' => $user->getOrders()
+		] );
 
-	$page = new Page();
+	} );
 
-	$page->setTpl("profile-orders-detail", [
-		'order'=>$order->getValues(),
-		'cart'=>$cart->getValues(),
-		'products'=>$cart->getProducts()
-	]);	
+	$app->get( "/profile/orders/:idorder", function( $idorder ) {
 
-});
+		User::verifyLogin( false );
 
-$app->get("/profile/change-password", function(){
+		$order = new Order();
+		$order->get( (int)$idorder );
 
-	User::verifyLogin(false);
+		$cart = new Cart();
+		$cart->get( (int)$order->getidcart() );
+		$cart->getCalculateTotal();
 
-	$page = new Page();
+		$page = new Page();
+		$page->setTpl( "profile-orders-detail", [
+			'order'    => $order->getValues(),
+			'cart'     => $cart->getValues(),
+			'products' => $cart->getProducts()
+		] );
 
-	$page->setTpl("profile-change-password", [
-		'changePassError'=>User::getError(),
-		'changePassSuccess'=>User::getSuccess()
-	]);
+	} );
 
-});
+	$app->get( "/profile/change-password", function() {
 
-$app->post("/profile/change-password", function(){
+		User::verifyLogin( false );
 
-	User::verifyLogin(false);
+		$page = new Page();
+		$page->setTpl( "profile-change-password", [
+			'changePassError'   => User::getError(),
+			'changePassSuccess' => User::getSuccess()
+		] );
 
-	if (!isset($_POST['current_pass']) || $_POST['current_pass'] === '') {
+	} );
 
-		User::setError("Digite a senha atual.");
-		header("Location: /profile/change-password");
-		exit;
+	$app->post( "/profile/change-password", function() {
 
-	}
+		User::verifyLogin( false );
 
-	if (!isset($_POST['new_pass']) || $_POST['new_pass'] === '') {
+		# Verificando se a senha atual foi informada.
+		if ( !isset( $_POST[ 'current_pass' ] ) || $_POST[ 'current_pass' ] === '' ) {
 
-		User::setError("Digite a nova senha.");
-		header("Location: /profile/change-password");
-		exit;
+			User::setError( "Informe a senha atual" );
 
-	}
+			header( "location: /profile/change-password" );
+			exit();
+		}
 
-	if (!isset($_POST['new_pass_confirm']) || $_POST['new_pass_confirm'] === '') {
+		# Verificando se a nova senha foi informada.
+		if ( !isset( $_POST[ 'new_pass' ] ) || $_POST[ 'new_pass' ] === '' ) {
 
-		User::setError("Confirme a nova senha.");
-		header("Location: /profile/change-password");
-		exit;
+			User::setError( "Informe a nova senha" );
 
-	}
+			header( "location: /profile/change-password" );
+			exit();
+		}
 
-	if ($_POST['current_pass'] === $_POST['new_pass']) {
+		# Verificando se a confirmação de senha foi informada.
+		if ( !isset( $_POST[ 'new_pass_confirm' ] ) || $_POST[ 'new_pass_confirm' ] === '' ) {
 
-		User::setError("A sua nova senha deve ser diferente da atual.");
-		header("Location: /profile/change-password");
-		exit;		
+			User::setError( "Informe a confirmação de senha" );
 
-	}
+			header( "location: /profile/change-password" );
+			exit();
+		}
 
-	$user = User::getFromSession();
+		# Verificando se a confirmação de senha foi informada.
+		if ( $_POST[ 'current_pass' ] === $_POST[ 'new_pass' ] ) {
 
-	if (!password_verify($_POST['current_pass'], $user->getdespassword())) {
+			User::setError( "A nova senha deve ser diferente da atual" );
 
-		User::setError("A senha está inválida.");
-		header("Location: /profile/change-password");
-		exit;			
+			header( "location: /profile/change-password" );
+			exit();
+		}
 
-	}
+		$user = User::getFromSession();
 
-	$user->setdespassword($_POST['new_pass']);
+		# Verificando se a senha atual é a senha real do usuário.
+		if ( !password_verify( $_POST[ 'current_pass' ], $user->getdespassword() ) ) {
 
-	$user->update();
+			User::setError( "Senha atual inválida" );
 
-	User::setSuccess("Senha alterada com sucesso.");
+			header( "location: /profile/change-password" );
+			exit();
 
-	header("Location: /profile/change-password");
-	exit;
+		}
 
-});
+		$user->setdespassword( $_POST[ 'new_pass' ] );
+		$user->update();
 
-$app->get("/profile/orders", function(){
+		User::setSuccess( "Senha alterada com sucesso!" );
 
-	User::verifyLogin(false);
+		header( "location: /profile/change-password" );
+		exit();
 
-	$user = User::getFromSession();
+	} );
 
-	$page = new Page();
-
-	$page->setTpl("profile-orders", [
-		'orders'=>$user->getOrders()
-	]);
-
-});
-
-$app->get("/profile/orders/:idorder", function($idorder){
-
-	User::verifyLogin(false);
-
-	$order = new Order();
-
-	$order->get((int)$idorder);
-
-	$cart = new Cart();
-
-	$cart->get((int)$order->getidcart());
-
-	$cart->getCalculateTotal();
-
-	$page = new Page();
-
-	$page->setTpl("profile-orders-detail", [
-		'order'=>$order->getValues(),
-		'cart'=>$cart->getValues(),
-		'products'=>$cart->getProducts()
-	]);	
-
-});
-
-$app->get("/profile/change-password", function(){
-
-	User::verifyLogin(false);
-
-	$page = new Page();
-
-	$page->setTpl("profile-change-password", [
-		'changePassError'=>User::getError(),
-		'changePassSuccess'=>User::getSuccess()
-	]);
-
-});
-
-$app->post("/profile/change-password", function(){
-
-	User::verifyLogin(false);
-
-	if (!isset($_POST['current_pass']) || $_POST['current_pass'] === '') {
-
-		User::setError("Digite a senha atual.");
-		header("Location: /profile/change-password");
-		exit;
-
-	}
-
-	if (!isset($_POST['new_pass']) || $_POST['new_pass'] === '') {
-
-		User::setError("Digite a nova senha.");
-		header("Location: /profile/change-password");
-		exit;
-
-	}
-
-	if (!isset($_POST['new_pass_confirm']) || $_POST['new_pass_confirm'] === '') {
-
-		User::setError("Confirme a nova senha.");
-		header("Location: /profile/change-password");
-		exit;
-
-	}
-
-	if ($_POST['current_pass'] === $_POST['new_pass']) {
-
-		User::setError("A sua nova senha deve ser diferente da atual.");
-		header("Location: /profile/change-password");
-		exit;		
-
-	}
-
-	$user = User::getFromSession();
-
-	if (!password_verify($_POST['current_pass'], $user->getdespassword())) {
-
-		User::setError("A senha está inválida.");
-		header("Location: /profile/change-password");
-		exit;			
-
-	}
-
-	$user->setdespassword($_POST['new_pass']);
-
-	$user->update();
-
-	User::setSuccess("Senha alterada com sucesso.");
-
-	header("Location: /profile/change-password");
-	exit;
-
-});
+?>

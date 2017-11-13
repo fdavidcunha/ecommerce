@@ -9,12 +9,14 @@
 	{
 		
 		const SANDBOX             = true;
-		const SANDBOX_EMAIL       = 'f.david.cunha@gmail.com';
-		const PRODUCTION_EMAIL    = 'f.david.cunha@gmail.com';
-		const SANDBOX_TOKEN       = 'E0B0B718A2EA40D3AE599033F57E8384';
-		const PRODUCTION_TOKEN    = 'F80BD77AC0FB45E9A252BEC4E9AFA579';
+		const SANDBOX_EMAIL       = "f.david.cunha@gmail.com";
+		const SANDBOX_TOKEN       = "E0B0B718A2EA40D3AE599033F57E8384";
 		const SANDBOX_SESSIONS    = 'https://ws.sandbox.pagseguro.uol.com.br/v2/sessions';
+		const SANDBOX_URL_JS      = 'https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js';
+		const PRODUCTION_EMAIL    = 'f.david.cunha@gmail.com';
+		const PRODUCTION_TOKEN    = 'F80BD77AC0FB45E9A252BEC4E9AFA579';
 		const PRODUCTION_SESSIONS = 'https://ws.pagseguro.uol.com.br/v2/sessions';
+		const PRODUCTION_URL_JS   = 'https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js';
 
 		public static function getAuthentication()
 		{
@@ -44,5 +46,13 @@
 			return ( Config::SANDBOX === true ) ? Config::SANDBOX_SESSIONS : Config::PRODUCTION_SESSIONS;
 
 		}
+
+		public static function getUrlJS()
+		{
+
+			return ( Config::SANDBOX === true ) ? Config::SANDBOX_URL_JS : Config::PRODUCTION_URL_JS;
+
+		}
+
 	}
 ?>

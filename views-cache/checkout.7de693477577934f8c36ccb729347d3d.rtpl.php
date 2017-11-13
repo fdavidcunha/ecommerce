@@ -30,10 +30,10 @@
 									<div class="woocommerce-billing-fields">
 										<h3>Endereço de entrega</h3>
 										<p id="billing_address_1_field" class="form-row form-row-wide address-field validate-required">
-											<label class="" for="billing_address_1">Cep <abbr title="required" class="required">*</abbr>
+											<label class="" for="billing_cep_1">Cep <abbr title="required" class="required">*</abbr>
 											</label>
-                                            <input type="text" value="<?php echo htmlspecialchars( $cart["deszipcode"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" placeholder="00000-000" id="billing_address_1" name="zipcode" class="input-text ">
-                                            <input type="submit" value="Atualizar CEP" id="place_order" class="button alt" formaction="/checkout" formmethod="get">
+											<input type="text" value="<?php echo htmlspecialchars( $cart["deszipcode"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" placeholder="00000-000" id="billing_cep_1" name="zipcode" class="input-text ">
+											<input type="submit" value="Atualizar CEP" id="place_order" class="button alt" formaction="/checkout" formmethod="get">
 										</p>
 										<div class="row">
 											<div class="col-sm-9">
@@ -116,6 +116,7 @@
 												</tfoot>
 											</table>
 
+											<!-- Radio buttons para escolha do meio de pagamento.
 											<p id="billing_state_field" class="form-row form-row-first address-field validate-state" data-o_class="form-row form-row-first address-field validate-state">
 												<input type="radio" id="method-pagseguro" name="payment-method" value="1" style="float:left; margin: 30px;">
 												<label class="" for="method-pagseguro">
@@ -129,6 +130,7 @@
 													<img style="height: 64px;" src="/res/site/img/logo-paypal.png">
 												</label>
 											</p>
+										    -->
 
 											<div id="payment">
 												<div class="form-row place-order">

@@ -1,81 +1,80 @@
 <?php
 
-use Hcode\Page;
-use Hcode\Model\Cart;
-use Hcode\Model\Product;
+	use Hcode\Page;
+	use Hcode\Model\Cart;
+	use Hcode\Model\Product;
 
-$app->get("/cart", function(){
+	$app->get( "/cart", function(){
 
-	$cart = Cart::getFromSession();
+		// Obtendo o carrinho do usuário.
+		$cart = Cart::getFromSession();
 
-	$page = new Page();
+		$page = new Page();
+		$page->setTpl( "cart", [ 
+			'cart'     => $cart->getValues(),
+			'products' => $cart->getProducts(),
+			'error'    => Cart::getMsgError()
+		] );
 
-	$page->setTpl("cart", [
-		'cart'=>$cart->getValues(),
-		'products'=>$cart->getProducts(),
-		'error'=>Cart::getMsgError()
-	]);
+	} );
 
-});
 
-$app->get("/cart/:idproduct/add", function($idproduct){
+	$app->get( "/cart/:idproduct/add", function( $idproduct ){
 
-	$product = new Product();
+		$product = new Product();
+		$product->get( (int)$idproduct );
 
-	$product->get((int)$idproduct);
+		$cart = Cart::getFromSession();
 
-	$cart = Cart::getFromSession();
+		$qtd = ( isset( $_GET[ 'qtd' ] ) ) ? (int)$_GET[ 'qtd' ] : 1;
 
-	$qtd = (isset($_GET['qtd'])) ? (int)$_GET['qtd'] : 1;
+		// Adicionando a quantidade de produtos informada no site.
+		for ( $i = 0; $i < $qtd; $i++ ){
+			
+			$cart->addProduct( $product );
+			
+		}
 
-	for ($i = 0; $i < $qtd; $i++) {
+		header( "location: /cart" );
+		exit();
+
+	} );
+
+
+	$app->get( "/cart/:idproduct/minus", function( $idproduct ){
+
+		$product = new Product();
+		$product->get( (int)$idproduct );
+
+		$cart = Cart::getFromSession();
+		$cart->removeProduct( $product );
+
+		header( "location: /cart" );
+		exit();
 		
-		$cart->addProduct($product);
+	} );
 
-	}
+	$app->get( "/cart/:idproduct/remove", function( $idproduct ){
 
-	header("Location: /cart");
-	exit;
+		$product = new Product();
+		$product->get( (int)$idproduct );
 
-});
+		$cart = Cart::getFromSession();
+		$cart->removeProduct( $product, true );
 
-$app->get("/cart/:idproduct/minus", function($idproduct){
+		header( "location: /cart" );
+		exit();
+		
+	} );
 
-	$product = new Product();
+	$app->post( "/cart/freight", function() {
 
-	$product->get((int)$idproduct);
+		$cart = Cart::getFromSession();
+		$cart->setFreight( $_POST[ 'zipcode' ] );
 
-	$cart = Cart::getFromSession();
+		header( "location: /cart" );
+		exit();
 
-	$cart->removeProduct($product);
+	} );
 
-	header("Location: /cart");
-	exit;
-
-});
-
-$app->get("/cart/:idproduct/remove", function($idproduct){
-
-	$product = new Product();
-
-	$product->get((int)$idproduct);
-
-	$cart = Cart::getFromSession();
-
-	$cart->removeProduct($product, true);
-
-	header("Location: /cart");
-	exit;
-
-});
-
-$app->post("/cart/freight", function(){
-
-	$cart = Cart::getFromSession();
-
-	$cart->setFreight($_POST['zipcode']);
-
-	header("Location: /cart");
-	exit;
-
-});
+?>

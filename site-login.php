@@ -1,157 +1,157 @@
 <?php
 
-use Hcode\Page;
-use Hcode\Model\User;
+	use Hcode\Page;
+	use Hcode\Model\User;
 
-$app->get("/login", function(){
+	$app->get( "/login", function(){
 
-	$page = new Page();
+		$page = new Page();
+		$page->setTpl( "login", [
+			'error'          => User::getError(),
+			'errorRegister'  => User::getErrorRegister(),
+			'registerValues' => ( isset( $_SESSION[ 'registerValues' ] ) ) ? $_SESSION[ 'registerValues' ] : [ 'name' => '', 'email' => '', 'phone' => '' ]
+		]);
 
-	$page->setTpl("login", [
-		'error'=>User::getError(),
-		'errorRegister'=>User::getErrorRegister(),
-		'registerValues'=>(isset($_SESSION['registerValues'])) ? $_SESSION['registerValues'] : ['name'=>'', 'email'=>'', 'phone'=>'']
-	]);
+	} );
 
-});
+	$app->post( "/login", function(){
 
-$app->post("/login", function(){
+		try {
 
-	try {
+			User::login( $_POST[ 'login' ], $_POST[ 'password' ] );
+			
+		} catch ( Exception $e ) {
+			
+			User::setError( $e->getMessage() );
 
-		User::login($_POST['login'], $_POST['password']);
+		}
+		
+		header( "location: /checkout" );
+		exit();
 
-	} catch(Exception $e) {
+	} );
 
-		User::setError($e->getMessage());
+	$app->get( "/logout", function(){
 
-	}
+		User::logout();
 
-	header("Location: /checkout");
-	exit;
+		Cart::removeToSession();
+   		
+   		session_regenerate_id();		
 
-});
+		header( "location: /login" );
+		exit();
 
-$app->get("/logout", function(){
+	} );
 
-	User::logout();
+	$app->post( "/register", function(){
 
-	header("Location: /login");
-	exit;
+		# Salvando as informações que o usuário já digitou.
+		$_SESSION[ 'registerValues' ] = $_POST;
 
-});
+		if ( !isset( $_POST[ 'name' ] ) || $_POST[ 'name' ] == '' ) { 
 
-$app->post("/register", function(){
+			User::setErrorRegister( "Preencha o seu nome." );
 
-	$_SESSION['registerValues'] = $_POST;
+			header( "location: /login" );
+			exit();
+		}
 
-	if (!isset($_POST['name']) || $_POST['name'] == '') {
+		if ( !isset( $_POST[ 'email' ] ) || $_POST[ 'email' ] == '' ) { 
 
-		User::setErrorRegister("Preencha o seu nome.");
-		header("Location: /login");
-		exit;
+			User::setErrorRegister( "Preencha o seu e-mail." );
 
-	}
+			header( "location: /login" );
+			exit();
+		}
 
-	if (!isset($_POST['email']) || $_POST['email'] == '') {
+		if ( !isset( $_POST[ 'password' ] ) || $_POST[ 'password' ] == '' ) { 
 
-		User::setErrorRegister("Preencha o seu e-mail.");
-		header("Location: /login");
-		exit;
+			User::setErrorRegister( "Preencha a senha." );
 
-	}
+			header( "location: /login" );
+			exit();
+		}
 
-	if (!isset($_POST['password']) || $_POST['password'] == '') {
+		if ( User::checkLoginExist( $_POST[ 'email' ] ) === true )
+		{
 
-		User::setErrorRegister("Preencha a senha.");
-		header("Location: /login");
-		exit;
+			User::setErrorRegister( "Endereço de e-mail já utilizado por outro usuário." );
 
-	}
+			header( "location: /login" );
+			exit();
+		}
 
-	if (User::checkLoginExist($_POST['email']) === true) {
+		$user = new User;
+		
+		$user->setData( [
+			'inadmin'     => 0,
+			'deslogin'    => $_POST[ 'email' ],
+			'desperson'   => $_POST[ 'name' ],
+			'desemail'    => $_POST[ 'email' ],
+			'despassword' => $_POST[ 'password' ],
+			'nrphone'     => $_POST[ 'phone' ]
+		]);
 
-		User::setErrorRegister("Este endereço de e-mail já está sendo usado por outro usuário.");
-		header("Location: /login");
-		exit;
+		$user->save();
 
-	}
+		User::login( $_POST[ 'email' ], $_POST[ 'password' ] );
 
-	$user = new User();
+		header( "location: /checkout" );
+		exit();
 
-	$user->setData([
-		'inadmin'=>0,
-		'deslogin'=>$_POST['email'],
-		'desperson'=>$_POST['name'],
-		'desemail'=>$_POST['email'],
-		'despassword'=>$_POST['password'],
-		'nrphone'=>$_POST['phone']
-	]);
+	} );
 
-	$user->save();
+	$app->get( "/forgot", function() {
 
-	User::login($_POST['email'], $_POST['password']);
+		$page = new Page();
+		$page->setTpl( "forgot" );
 
-	header('Location: /checkout');
-	exit;
+	});
 
-});
+	$app->post( "/forgot", function() {
 
-$app->get("/forgot", function() {
+		$user = User::getForgot( $_POST[ "email" ], false );
+		
+		header("Location: /forgot/sent");
+		exit();
 
-	$page = new Page();
+	});
 
-	$page->setTpl("forgot");	
+	$app->get( "/forgot/sent", function(){
 
-});
+		$page = new Page();
+		$page->setTpl( "forgot-sent" );
 
-$app->post("/forgot", function(){
+	});
 
-	$user = User::getForgot($_POST["email"], false);
+	$app->get( "/forgot/reset", function(){
 
-	header("Location: /forgot/sent");
-	exit;
+		$user = User::validForgotDecrypt( $_GET[ "code" ] );
 
-});
+		$page = new Page();
 
-$app->get("/forgot/sent", function(){
+		$page->setTpl( "forgot-reset", array(
+				"name" => $user[ "desperson" ],
+				"code" => $_GET[ "code" ]
+			) );
 
-	$page = new Page();
+	});
 
-	$page->setTpl("forgot-sent");	
+	$app->post( "/forgot/reset", function(){
 
-});
+		$forgot = User::validForgotDecrypt( $_POST[ "code" ] );
 
+		User::setForgotUsed( $forgot[ "idrecovery" ] );
 
-$app->get("/forgot/reset", function(){
+		$user = new User();
+		$user->get( (int)$forgot[ "iduser" ] );
+		$user->setPassword( $_POST[ "password" ] );
 
-	$user = User::validForgotDecrypt($_GET["code"]);
+		$page = new Page();
 
-	$page = new Page();
+		$page->setTpl( "forgot-reset-success" );
 
-	$page->setTpl("forgot-reset", array(
-		"name"=>$user["desperson"],
-		"code"=>$_GET["code"]
-	));
+	});
 
-});
-
-$app->post("/forgot/reset", function(){
-
-	$forgot = User::validForgotDecrypt($_POST["code"]);	
-
-	User::setFogotUsed($forgot["idrecovery"]);
-
-	$user = new User();
-
-	$user->get((int)$forgot["iduser"]);
-
-	$password = User::getPasswordHash($_POST["password"]);
-
-	$user->setPassword($password);
-
-	$page = new Page();
-
-	$page->setTpl("forgot-reset-success");
-
-});
+?>
