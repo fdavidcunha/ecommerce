@@ -271,11 +271,11 @@
 </script>
 
 <script id="tpl-installment-free" type="text/x-handlebars-template">
-    <option>{{quantity}}x de R${{installmentAmount}} sem juros</option>
+    <option>{{quantity}}x de {{installmentAmount}} sem juros</option>
 </script>
 
 <script id="tpl-installment" type="text/x-handlebars-template">
-    <option>{{quantity}}x de R${{installmentAmount}} com juros (R${{totalAmount}})</option>
+    <option>{{quantity}}x de {{installmentAmount}} com juros ({{totalAmount}})</option>
 </script>
 
 <script src="<?php echo htmlspecialchars( $pagseguro["urlJS"], ENT_COMPAT, 'UTF-8', FALSE ); ?>"></script>
@@ -369,8 +369,6 @@
 
             var value = $(this).val();
 
-                        console.log('teste');
-
             if ( value.length >= 6 ) {
 
                 PagSeguroDirectPayment.getBrand( {
@@ -381,7 +379,91 @@
                         
                         $( "#brand_field" ).val( response.brand.name );
 
-                        console.log(response.brand.name);
+                        PagSeguroDirectPayment.getInstallments( {
+
+                            amount: parseFloat( "<?php echo htmlspecialchars( $order["vltotal"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" ),
+                            
+                            brand: response.brand.name,
+                            
+                            maxInstallmentNoInterest: parseInt( "<?php echo htmlspecialchars( $pagseguro["maxInstallmentNoInterest"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" ),
+
+                            success: function(response) {
+
+                                // Opções de parcelamento disponíveis.
+                                $( "#installments_field" ).html( '<option disabled="disabled"></option>' );
+
+                                // Template das parcelas com juros.
+                                var tplInstallmentFree = Handlebars.compile( $( "#tpl-installment-free" ).html() );
+
+                                // Template das parcelas sem juros.
+                                var tplInstallment = Handlebars.compile( $( "#tpl-installment" ).html() );
+
+                                // Formatação da moeda.
+                                var formatReal = {
+                                    minimumFractionDigits: 2,
+                                    style: "currency",
+                                    currency: "BRL"
+                                };
+
+                                $.each( response.installments[ $("#brand_field").val() ], function( index, installment ) {
+
+                                    // Exibindo apenas a quantidade de parcelas máximas permitidas.
+                                    if ( parseInt( "<?php echo htmlspecialchars( $pagseguro["maxInstallment"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" ) > index ) {
+
+                                        // Parcelas sem juros.
+                                        if ( installment.interestFree === true ){
+
+                                            var $option = $( tplInstallmentFree({
+                                                quantity:installment.quantity,
+                                                installmentAmount:installment.installmentAmount.toLocaleString( 'pt-BR', formatReal )
+
+                                            } ) );
+                                        
+                                        // Parcelas com juros.
+                                        } else {
+
+                                            var $option = $( tplInstallment({
+                                                quantity:installment.quantity,
+                                                installmentAmount:installment.installmentAmount.toLocaleString( 'pt-BR', formatReal ),
+                                                totalAmount:installment.totalAmount.toLocaleString( 'pt-BR', formatReal )
+
+                                            } ) );
+
+                                        }
+
+                                        // Guardando os elementos retornados pelo pagseguro dentro do elemento do DOM.
+                                        $option.data( "installlment", installment );
+
+                                        // Alimentando a lista do combo.
+                                        $( "#installments_field" ).append( $option );
+
+                                    }
+                                
+                                });
+
+                                //*/
+
+                            },
+                            error: function(response) {
+
+                                // Array de erros retornados.
+                                var errors = [];
+
+                                // Varrendo os erros retornados para exibir para o usuário.
+                                for ( var code in response.errors )
+                                {
+                                    errors.push( response.errors[ code ] );
+                                }
+
+                                showError( errors.toString() );
+
+                            },
+                            complete: function(response) {
+                                //tratamento comum para todas chamadas
+                            }
+
+                        });        
+
                     },
                     error: function(response) {
 
