@@ -569,13 +569,27 @@
                 success: function(response) {
                     
                     clearError();
-                    
+
                     // Token gerado, esse deve ser usado na chamada da API do Checkout Transparente.
+                    
+                    params.token = response.card.token;
+                    params.hash  = PagSeguroDirectPayment.getSenderHash();
 
-                    console.log( "token: ", response.card.token );
-                    console.log( "hash", PagSeguroDirectPayment.getSenderHash() );
-                    console.log( "params", params );
+                    // Utilizando o JQuery para criar uma solicitação AJAX, via POST, para uma rota.
 
+                    // Rota
+                    // Passando os parâmetros concatenados.
+                    // Função de callback 
+
+                    $.post(
+                        "/payment/credit",  
+                        $.param( params ),  
+                        function(r){      
+
+                            console.log(r);
+
+                        }
+                    );
 
                 },
                 error: function(response) {

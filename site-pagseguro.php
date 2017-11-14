@@ -6,6 +6,24 @@
 	use \Hcode\Model\Order;
 	use \Hcode\PagSeguro\Transporter;
 
+	# Rota para o pagamento do pagseguro.
+	$app->post( '/payment/credit', function() {
+
+		User::verifyLogin( false );
+
+		$order = new Order();
+		$order->getFromSession();
+
+		$address = $order->getAddress();
+
+		$cart = $order->getCart();
+
+		var_dump($order->getValues());
+		var_dump($address->getValues());
+		var_dump($cart->getValues());
+
+	});
+
 	# Rota para o leiaute de pagamento.
 	$app->get( '/payment', function() {
 
