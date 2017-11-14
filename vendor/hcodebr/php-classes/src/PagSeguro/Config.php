@@ -19,10 +19,10 @@
 		const PRODUCTION_URL_JS   = 'https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js';
 		
 		// Máximo de parcelas sem juros.
-		const MAX_INSTALLMENT_NO_INTEREST = 6;
+		const MAX_INSTALLMENT_NO_INTEREST = 1;
 
 		// Máximo de parcelas.
-		const MAX_INSTALLMENT = 10;
+		const MAX_INSTALLMENT = 1;
 
 		public static function getAuthentication()
 		{

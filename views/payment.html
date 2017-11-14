@@ -301,11 +301,25 @@
 
         }
 
+        // Função para esconder o erro.
+        function clearError()
+        {
+
+            // Pegando o objeto pelo ID dele e removendo o texto de dentro.
+            $( "#alert-error span.msg" ).text( "" );
+
+            // Removendo a classe que deixa o componente invisível.
+            $( "#alert-error" ).addClass( "hide" );
+
+        }
+
         PagSeguroDirectPayment.getPaymentMethods({
             
             amount: parseFloat( "{$order.vltotal}" ),
             
             success: function(response) {
+
+                clearError();
 
                 // Criando os templates dos meios de pagamento.
                 var tplDebit  = Handlebars.compile( $( "#tpl-payment-debit" ).html() );
@@ -377,6 +391,8 @@
                     
                     success: function(response) {
                         
+                        clearError();
+                        
                         $( "#brand_field" ).val( response.brand.name );
 
                         PagSeguroDirectPayment.getInstallments( {
@@ -388,6 +404,8 @@
                             maxInstallmentNoInterest: parseInt( "{$pagseguro.maxInstallmentNoInterest}" ),
 
                             success: function(response) {
+
+                                clearError();
 
                                 // Opções de parcelamento disponíveis.
                                 $( "#installments_field" ).html( '<option disabled="disabled"></option>' );
@@ -488,6 +506,104 @@
             }
 
         });
+
+        // Função para validação de CPF.
+        function isValidCPF(number) {
+            var sum;
+            var rest;
+            sum = 0;
+            if (number == "00000000000") return false;
+
+            for (i=1; i<=9; i++) sum = sum + parseInt(number.substring(i-1, i)) * (11 - i);
+            rest = (sum * 10) % 11;
+
+            if ((rest == 10) || (rest == 11))  rest = 0;
+            if (rest != parseInt(number.substring(9, 10)) ) return false;
+
+            sum = 0;
+            for (i = 1; i <= 10; i++) sum = sum + parseInt(number.substring(i-1, i)) * (12 - i);
+            rest = (sum * 10) % 11;
+
+            if ((rest == 10) || (rest == 11))  rest = 0;
+            if (rest != parseInt(number.substring(10, 11) ) ) return false;
+            return true;
+        }
+
+        // Obtendo o formulário de envio.
+        $( "#form-credit" ).on( "submit", function( e ) {
+
+            // Cancelando o redirecionamento da página.
+            e.preventDefault();
+
+            // Validando o CPF.
+            if ( !isValidCPF( $( "#form-credit [name=cpf]" ).val() ) ) {
+
+                showError( "CPF inválido!" );
+                return false;
+
+            }
+
+            // Desabilitando o botão de compra.
+            $( "#form-credit [ type=submit ]" ).attr( "disabled", "disabled" );
+
+            // Obtendo todos os campos do formulário.
+            var formData = $( this ).serializeArray();
+
+            // Transformando os campos da página em um objeto único.
+            var params = {};
+
+            $.each( formData, function( index, field ) {
+
+                params[ field.name ] = field.value;
+
+            });
+
+            // Obtendo o token do cartão de crédito.
+            PagSeguroDirectPayment.createCardToken( {
+
+                cardNumber: params.number,
+                cvv: params.cvv,
+                expirationMonth: params.month,
+                expirationYear: params.year,
+
+                success: function(response) {
+                    
+                    clearError();
+                    
+                    // Token gerado, esse deve ser usado na chamada da API do Checkout Transparente.
+
+                    console.log( "token: ", response.card.token );
+                    console.log( "hash", PagSeguroDirectPayment.getSenderHash() );
+                    console.log( "params", params );
+
+
+                },
+                error: function(response) {
+
+                    // Array de erros retornados.
+                    var errors = [];
+
+                    // Varrendo os erros retornados para exibir para o usuário.
+                    for ( var code in response.errors )
+                    {
+                        errors.push( response.errors[ code ] );
+                    }
+
+                    showError( errors.toString() );
+
+                },
+                complete: function(response) {
+                    
+                    // Tratamento comum para todas chamadas.
+
+                    // Desabilitando o botão de compra.
+                    $( "#form-credit [ type=submit ]" ).removeAttr( "disabled" );
+
+                }
+
+            });
+
+        } );
 
     });
 
