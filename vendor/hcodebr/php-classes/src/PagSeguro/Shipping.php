@@ -42,7 +42,7 @@
 			$address = $dom->importNode( $address, true );
 			$address = $documents->appendChild( $address );
 
-			$cost = $dom->createElement( "cost", number_format( $this->cost, 2, ".", '' );
+			$cost = $dom->createElement( "cost", number_format( $this->cost, 2, ".", '' ) );
 			$cost = $shipping->appendChild( $cost );
 
 			$type = $dom->createElement( "type", $this->type );
@@ -56,4 +56,5 @@
 		}
 
 	}
+
 ?>
