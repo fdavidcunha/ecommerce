@@ -16,7 +16,7 @@
 				
 			}
 
-			if ( !$areaCode || strlen( $areaCode ) < 8 || strlen( $areaCode ) > 9 ) {
+			if ( !$number || strlen( $number ) < 8 || strlen( $number ) > 9 ) {
 
 				throw new Exception( "Número do telefone não informado ou inválido!" );
 				
