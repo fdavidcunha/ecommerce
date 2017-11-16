@@ -40,7 +40,7 @@
 			// Importando o nó Phone junto com os nós filhos do mesmo.
 			$address = $this->address->getDOMElement();
 			$address = $dom->importNode( $address, true );
-			$address = $documents->appendChild( $address );
+			$address = $shipping->appendChild( $address );
 
 			$cost = $dom->createElement( "cost", number_format( $this->cost, 2, ".", '' ) );
 			$cost = $shipping->appendChild( $cost );
