@@ -378,6 +378,20 @@
 
         });    
 
+        // Pegando o valor do campo quando ele for alterado.
+        $( "#installments_field" ).on( "change", function() {
+
+            var installment = $( $this ).find( "option:selected" ).data( "installment" );
+
+            console.log(installment);
+
+            // Atualizando os valores dos imputs.
+            $( "[name=installments_qtd]" ).val( installment.quantity );
+            $( "[name=installments_value]" ).val( installment.installmentAmount );
+            $( "[name=installments_total]" ).val( installment.totalAmount );
+
+        });
+
         // Descobrindo a bandeira do cartão de crédito.
         $( "#number_field" ).on( "change", function() {
 

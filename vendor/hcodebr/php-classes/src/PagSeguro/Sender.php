@@ -1,6 +1,10 @@
 <?php
 
-	namespace \Hcode\PagSeguro;
+	namespace Hcode\PagSeguro;
+
+	use Exception;
+	use DOMDocument;
+	use DOMElement;
 
 	class Sender {
 
@@ -55,13 +59,13 @@
 			$name = $sender->appendChild( $name );
 
 			$email = $dom->createElement( "email", $this->email );
-			$email = $sender->appendChield( $email );
+			$email = $sender->appendChild( $email );
 
 			$bornDate = $dom->createElement( "bornDate", $this->bornDate->format( "d/m/Y" ) );
-			$bornDate = $sender->appendChield( $bornDate );
+			$bornDate = $sender->appendChild( $bornDate );
 
 			$documents = $dom->createElement( "documents" );
-			$documents = $sender->appendChield( $documents );
+			$documents = $sender->appendChild( $documents );
 
 			// Importando o nó CPF junto com os nós filhos do mesmo.
 			$cpf = $this->cpf->getDOMElement();
@@ -74,10 +78,10 @@
 			$phone = $documents->appendChild( $phone );
 
 			$hash = $dom->createElement( "hash", $this->hash );
-			$hash = $sender->appendChield( $hash );
+			$hash = $sender->appendChild( $hash );
 
 			$ip = $dom->createElement( "ip", $this->ip );
-			$ip = $sender->appendChield( $ip );
+			$ip = $sender->appendChild( $ip );
 
 			return $sender;
 

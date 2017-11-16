@@ -1,6 +1,10 @@
 <?php
 
-	namespace \Hcode\PagSeguro;
+	namespace Hcode\PagSeguro;
+
+	use Exception;
+	use DOMDocument;
+	use DOMElement;
 
 	class Address {
 
@@ -81,25 +85,25 @@
 			$street = $address->appendChild( $street );
 
 			$number = $dom->createElement( "number", $this->number );
-			$number = $address->appendChield( $number );
+			$number = $address->appendChild( $number );
 
 			$complement = $dom->createElement( "complement", $this->complement );
-			$complement = $address->appendChield( $complement );
+			$complement = $address->appendChild( $complement );
 
 			$district = $dom->createElement( "district", $this->district );
-			$district = $address->appendChield( $district );
+			$district = $address->appendChild( $district );
 
 			$postalCode = $dom->createElement( "postalCode", $this->postalCode );
-			$postalCode = $address->appendChield( $postalCode );
+			$postalCode = $address->appendChild( $postalCode );
 
 			$city = $dom->createElement( "city", $this->city );
-			$city = $address->appendChield( $city );
+			$city = $address->appendChild( $city );
 
 			$state = $dom->createElement( "state", $this->state );
-			$state = $address->appendChield( $state );
+			$state = $address->appendChild( $state );
 
 			$country = $dom->createElement( "country", $this->country );
-			$country = $address->appendChield( $country );
+			$country = $address->appendChild( $country );
 
 			return $address;
 

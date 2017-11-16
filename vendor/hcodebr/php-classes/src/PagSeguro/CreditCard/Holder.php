@@ -1,6 +1,10 @@
 <?php
 
-	namespace \Hcode\PagSeguro\CreditCard;
+	namespace Hcode\PagSeguro\CreditCard;
+
+	use Exception;
+	use DOMDocument;
+	use DOMElement;
 
 	/**
 	* Classe que armazenas as informações do cliente pagador.
@@ -41,10 +45,10 @@
 			$name = $holder->appendChild( $name );
 
 			$birthDate = $dom->createElement( "birthDate", $this->birthDate->format( "d/m/Y" ) );
-			$birthDate = $holder->appendChield( $birthDate );
+			$birthDate = $holder->appendChild( $birthDate );
 
 			$documents = $dom->createElement( "documents" );
-			$documents = $holder->appendChield( $documents );
+			$documents = $holder->appendChild( $documents );
 
 			// Importando o nó CPF junto com os nós filhos do mesmo.
 			$cpf = $this->cpf->getDOMElement();

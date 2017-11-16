@@ -1,8 +1,12 @@
 <?php
 
-	namespace \Hcode\PagSeguro;
+	namespace Hcode\PagSeguro;
 
-	class CreditCard {
+	use Exception;
+	use DOMDocument;
+	use DOMElement;
+
+	class Shipping {
 
 		const PAC   = 1;
 		const SEDEX = 2;

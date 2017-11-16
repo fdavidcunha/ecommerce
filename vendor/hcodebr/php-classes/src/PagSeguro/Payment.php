@@ -1,6 +1,6 @@
 <?php
 
-	namespace \Hcode\PagSeguro;
+	namespace Hcode\PagSeguro;
 
 	class Payment {
 

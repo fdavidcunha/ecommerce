@@ -2,10 +2,16 @@
 	
 	use \Hcode\Page;
 	use \Hcode\Model\User;
-	use \Hcode\PagSeguro\Config;
 	use \Hcode\Model\Order;
+	use \Hcode\PagSeguro\Config;
 	use \Hcode\PagSeguro\Transporter;
 	use \Hcode\PagSeguro\Document;
+	use \Hcode\PagSeguro\Phone;
+	use \Hcode\PagSeguro\Address;
+	use \Hcode\PagSeguro\Sender;
+	use \Hcode\PagSeguro\Shipping;
+	use \Hcode\PagSeguro\CreditCard\Holder;
+	use \Hcode\PagSeguro\CreditCard\Installment;
 
 	# Rota para o pagamento do pagseguro.
 	$app->post( '/payment/credit', function() {
@@ -15,14 +21,45 @@
 		$order = new Order();
 		$order->getFromSession();
 
+		// Recarregando as informações do pedido.
+		$order->get( (int)$order->getidorder() );
+
 		$address = $order->getAddress();
 
 		$cart = $order->getCart();
 
 		$cpf = new Document( Document::CPF, $_POST[ 'cpf' ] );
 
+		$phone = new Phone( $_POST[ 'ddd' ], $_POST[ 'phone' ] );
+
+		$address = new Address( 
+			$address->getdesaddress(), 
+			$address->getdesnumber(), 
+			$address->getdescomplement(),
+			$address->getdesdistrict(), 
+			$address->getdeszipcode(), 
+			$address->getdescity(), 
+			$address->getdesstate(), 
+			$address->getdescountry());
+
+		$birthDate = new DateTime( $_POST[ 'birth' ] );
+
+		$sender = new Sender( 
+			$order->getdesperson(), 
+			$cpf, 
+			$birthDate, 
+			$phone, 
+			$order->getdesemail(),
+			$_POST[ 'hash' ] );
+
+		$holder = new Holder( $order->getdesperson(), $cpf, $birthDate, $phone );
+
+		$shipping = new Shipping( $address, Shipping::PAC, (float)$cart->getvlfreight() );
+
+		$installment = new Installment( (int)$_POST[ 'installments_qtd' ], (float)$_POST[ 'installments_value' ] );
+
 		$dom = new DOMDocument();
-		$test = $cpf->getDOMElement();
+		$test = $installment->getDOMElement();
 		$testNode = $dom->importNode( $test, true );
 		$dom->appendChild( $testNode );
 

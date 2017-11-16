@@ -1,6 +1,11 @@
 <?php
 
-	namespace \Hcode\PagSeguro\CreditCard;
+	namespace Hcode\PagSeguro\CreditCard;
+
+	use Exception;
+	use DOMDocument;
+	use DOMElement;
+	use Hcode\PagSeguro\Config;
 
 	/**
 	* Classe que armazenas as informações das parcelas do pagamento.
