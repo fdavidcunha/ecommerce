@@ -7,4 +7,5 @@
 		private $street;
 
 	}
+	
 ?>

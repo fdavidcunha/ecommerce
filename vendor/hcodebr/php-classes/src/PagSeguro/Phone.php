@@ -22,8 +22,8 @@
 				
 			}
 
-		$this->areaCode = $areaCode;
-		$this->number = $number;
+			$this->areaCode = $areaCode;
+			$this->number   = $number;
 
 		}
 

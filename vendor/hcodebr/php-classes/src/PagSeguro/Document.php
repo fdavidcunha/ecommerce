@@ -1,6 +1,10 @@
 <?php
 
-	namespace \Hcode\PagSeguro;
+	namespace Hcode\PagSeguro;
+
+	use Exception;
+	use DOMDocument;
+	use DOMElement;
 
 	class Document {
 
@@ -31,7 +35,7 @@
 				
 			}
 
-			$this->type = $type;
+			$this->type  = $type;
 			$this->value = $value;
 
 		}
@@ -73,7 +77,7 @@
 			$type = $document->appendChild( $type );
 
 			$value = $dom->createElement( "value", $this->value );
-			$value = $document->appendChield( $value );
+			$value = $document->appendChild( $value );
 
 			return $document;
 

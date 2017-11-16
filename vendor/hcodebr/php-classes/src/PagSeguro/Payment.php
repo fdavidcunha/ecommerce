@@ -15,5 +15,26 @@
 		private $creditCard;
 		private $bank;
 
+		public function __construct( $reference, $sender, $shipping, $extraAmount = 0 )
+		{
+
+			$this->reference   = $reference;
+			$this->sender      = $sender;
+			$this->shipping    = $shipping;
+			$this->extraAmount = $extraAmount;
+
+		}
+
+		public function getDOMDocument()
+		{
+
+			// Evitando problema de acentuação. O PagSeguro exige este ISO.
+			$dom = new DOMDocument( "1.0", "ISO-8859-1" );
+
+			return $dom;
+
+		}
+
 	}
+
 ?>

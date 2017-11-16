@@ -51,7 +51,7 @@
 			$item = $dom->createElement( "item" );
 			$item = $dom->appendChild( $item );
 
-			$amount = $dom->createElement( "amount", number_format( $this->amount, 2, ".", "" );
+			$amount = $dom->createElement( "amount", number_format( $this->amount, 2, ".", "" ) );
 			$amount = $item->appendChild( $amount );
 
 			$quantity = $dom->createElement( "quantity", $this->quantity );
