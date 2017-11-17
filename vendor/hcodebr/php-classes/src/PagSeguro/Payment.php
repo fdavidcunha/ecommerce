@@ -2,12 +2,17 @@
 
 	namespace Hcode\PagSeguro;
 
+	use Exception;
+	use DOMDocument;
+	use DOMElement;
+	use Hcode\PagSeguro\Payment\Method;
+
 	class Payment {
 
 		private $mode        = "default";
 		private $currency    = "BRL";
-		private $extraAmount = 0;  // Acréscimo ou desconto ao valor total.
-		private $reference   = ""  // Meu número.
+		private $extraAmount = 0;   // Acréscimo ou desconto ao valor total.
+		private $reference   = "";  // Meu número.
 		private $items       = [];
 		private $sender;
 		private $shipping;
@@ -22,6 +27,36 @@
 			$this->sender      = $sender;
 			$this->shipping    = $shipping;
 			$this->extraAmount = $extraAmount;
+
+		}
+
+		public function addItem( $item )
+		{
+
+			array_push( $this->items, $item );
+
+		}
+
+		public function setCreditCard( $creditCard )
+		{
+
+			$this->creditCard = $creditCard;
+			$this->method = Method::CREDIT_CARD;
+
+		}
+
+		public function setBank( $bank )
+		{
+
+			$this->bank = $bank;
+			$this->method = Method::DEBIT;
+
+		}
+
+		public function setBoleto()
+		{
+
+			$this->method = Method::BOLETO;
 
 		}
 

@@ -1,6 +1,10 @@
 <?php
 
-	namespace \Hcode\PagSeguro;
+	namespace Hcode\PagSeguro;
+
+	use Exception;
+	use DOMDocument;
+	use DOMElement;
 
 	class Item {
 
@@ -12,7 +16,7 @@
 		public function __construct( $id, $description, $amount, $quantity )
 		{
 
-			if ( !$id > !$id > 0 ) {
+			if ( !$id > 0 ) {
 
 				throw new Exception( "ID do item não informado ou inválido!" );
 				
@@ -55,10 +59,10 @@
 			$amount = $item->appendChild( $amount );
 
 			$quantity = $dom->createElement( "quantity", $this->quantity );
-			$quantity = $item->appendChield( $quantity );
+			$quantity = $item->appendChild( $quantity );
 
 			$description = $dom->createElement( "description", $this->description );
-			$description = $item->appendChield( $description );
+			$description = $item->appendChild( $description );
 
 			return $item;
 

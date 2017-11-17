@@ -10,6 +10,9 @@
 	use \Hcode\PagSeguro\Address;
 	use \Hcode\PagSeguro\Sender;
 	use \Hcode\PagSeguro\Shipping;
+	use \Hcode\PagSeguro\CreditCard;
+	use \Hcode\PagSeguro\Item;
+	use \Hcode\PagSeguro\Payment;
 	use \Hcode\PagSeguro\CreditCard\Holder;
 	use \Hcode\PagSeguro\CreditCard\Installment;
 
@@ -32,7 +35,7 @@
 
 		$phone = new Phone( $_POST[ 'ddd' ], $_POST[ 'phone' ] );
 
-		$address = new Address( 
+		$shippingAddress = new Address( 
 			$address->getdesaddress(), 
 			$address->getdesnumber(), 
 			$address->getdescomplement(),
@@ -40,7 +43,8 @@
 			$address->getdeszipcode(), 
 			$address->getdescity(), 
 			$address->getdesstate(), 
-			$address->getdescountry());
+			$address->getdescountry()
+		);
 
 		$birthDate = new DateTime( $_POST[ 'birth' ] );
 
@@ -54,17 +58,45 @@
 
 		$holder = new Holder( $order->getdesperson(), $cpf, $birthDate, $phone );
 
-		$shipping = new Shipping( $address, Shipping::PAC, (float)$cart->getvlfreight() );
-
-		var_dump( $_POST );
-		exit();
+		$shipping = new Shipping( $shippingAddress, Shipping::PAC, (float)$cart->getvlfreight() );
 
 		$installment = new Installment( (int)$_POST[ "installments_qtd" ], (float)$_POST[ "installments_value" ] );
 
-		$dom = new DOMDocument();
-		$test = $installment->getDOMElement();
-		$testNode = $dom->importNode( $test, true );
-		$dom->appendChild( $testNode );
+		$billingAddress = new Address(
+			$address->getdesaddress(), 
+			$address->getdesnumber(), 
+			$address->getdescomplement(),
+			$address->getdesdistrict(), 
+			$address->getdeszipcode(), 
+			$address->getdescity(), 
+			$address->getdesstate(), 
+			$address->getdescountry()
+		);
+
+		$creditCard = new CreditCard( $_POST[ 'token' ], $installment, $holder, $billingAddress );
+
+		$payment = new Payment( $order->getidorder(), $sender, $shipping );
+
+		foreach ( $cart->getProducts() as $product ) {
+			
+			$item = new Item(
+				(int)$product[ 'idproduct' ],
+				$product[ 'desproduct' ],
+				(float)$product[ 'vlprice' ],
+				(int)$product[ 'nrqtd' ]
+			);
+
+			$payment->addItem( $item );
+
+		}
+
+		$payment->setCreditCard( $creditCard );
+
+
+		$dom = $payment->getDOMDocument();
+		//$test = $payment->getDOMElement();
+		//$testNode = $dom->importNode( $test, true );
+		//$dom->appendChild( $testNode );
 
 		echo $dom->saveXml();
 
