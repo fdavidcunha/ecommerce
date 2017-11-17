@@ -87,16 +87,16 @@
 			$number = $dom->createElement( "number", $this->number );
 			$number = $address->appendChild( $number );
 
-			$complement = $dom->createElement( "complement", $this->complement );
+			$complement = $dom->createElement( "complement", utf8_encode( $this->complement ) );
 			$complement = $address->appendChild( $complement );
 
-			$district = $dom->createElement( "district", $this->district );
+			$district = $dom->createElement( "district", utf8_encode( $this->district ) );
 			$district = $address->appendChild( $district );
 
 			$postalCode = $dom->createElement( "postalCode", $this->postalCode );
 			$postalCode = $address->appendChild( $postalCode );
 
-			$city = $dom->createElement( "city", $this->city );
+			$city = $dom->createElement( "city", utf8_encode( $this->city ) );
 			$city = $address->appendChild( $city );
 
 			$state = $dom->createElement( "state", $this->state );

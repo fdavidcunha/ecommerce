@@ -22,7 +22,10 @@
 		const MAX_INSTALLMENT_NO_INTEREST = 1;
 
 		// Máximo de parcelas.
-		const MAX_INSTALLMENT = 2;
+		const MAX_INSTALLMENT = 1;
+
+		// URL de retorno que será chamada quando o pagseguro der o retorno.
+		const NOTIFICATION_URL = "http://www.temsaboresaude.com.br/payment/notification";
 
 		public static function getAuthentication()
 		{

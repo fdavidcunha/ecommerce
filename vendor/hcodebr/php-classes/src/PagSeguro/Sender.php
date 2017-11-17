@@ -75,7 +75,7 @@
 			// Importando o nó Phone junto com os nós filhos do mesmo.
 			$phone = $this->phone->getDOMElement();
 			$phone = $dom->importNode( $phone, true );
-			$phone = $documents->appendChild( $phone );
+			$phone = $sender->appendChild( $phone );
 
 			$hash = $dom->createElement( "hash", $this->hash );
 			$hash = $sender->appendChild( $hash );
