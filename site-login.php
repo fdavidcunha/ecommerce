@@ -2,6 +2,7 @@
 
 	use Hcode\Page;
 	use Hcode\Model\User;
+	use Hcode\Model\Cart;
 
 	$app->get( "/login", function(){
 

@@ -22,7 +22,7 @@
 		const MAX_INSTALLMENT_NO_INTEREST = 1;
 
 		// Máximo de parcelas.
-		const MAX_INSTALLMENT = 1;
+		const MAX_INSTALLMENT = 2;
 
 		public static function getAuthentication()
 		{

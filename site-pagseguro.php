@@ -56,7 +56,10 @@
 
 		$shipping = new Shipping( $address, Shipping::PAC, (float)$cart->getvlfreight() );
 
-		$installment = new Installment( (int)$_POST[ 'installments_qtd' ], (float)$_POST[ 'installments_value' ] );
+		var_dump( $_POST );
+		exit();
+
+		$installment = new Installment( (int)$_POST[ "installments_qtd" ], (float)$_POST[ "installments_value" ] );
 
 		$dom = new DOMDocument();
 		$test = $installment->getDOMElement();
@@ -70,7 +73,7 @@
 	# Rota para o leiaute de pagamento.
 	$app->get( '/payment', function() {
 
-		User::verifyLogin();
+		User::verifyLogin( false );
 
 		$order = new Order();
 		$order->getFromSession();

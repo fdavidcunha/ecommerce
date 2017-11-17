@@ -198,7 +198,7 @@
                                                             <div class="col-xs-6 col-sm-2">
                                                                 <div class="form-row form-row-wide address-field validate-required">
                                                                     <label class="" for="month_name">&nbsp;</label>
-                                                                    <select name="year" class="input-text" required="required">
+                                                                    <select name="year" id="year_field" class="input-text" required="required">
                                                                         <option disabled="disabled" selected="selected" value="">Ano</option>
                                                                         <?php $counter1=-1;  if( isset($years) && ( is_array($years) || $years instanceof Traversable ) && sizeof($years) ) foreach( $years as $key1 => $value1 ){ $counter1++; ?>
                                                                         <option value="<?php echo htmlspecialchars( $value1, ENT_COMPAT, 'UTF-8', FALSE ); ?>"><?php echo htmlspecialchars( $value1, ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
@@ -379,9 +379,9 @@
         });    
 
         // Pegando o valor do campo quando ele for alterado.
-        $( "#installments_field" ).on( "change", function() {
+        $( "#installments_field" ).on( "blur", function() {
 
-            var installment = $( $this ).find( "option:selected" ).data( "installment" );
+            var installment = $( this ).find( "option:selected" ).data( "installment" );
 
             console.log(installment);
 
@@ -389,6 +389,14 @@
             $( "[name=installments_qtd]" ).val( installment.quantity );
             $( "[name=installments_value]" ).val( installment.installmentAmount );
             $( "[name=installments_total]" ).val( installment.totalAmount );
+
+        });
+
+        // Forçando o foco no combo de parcelas.
+        $( "#year_field" ).on( "change", function() {
+
+            $( "#installments_field" ).focus();
+            $( "#year_field" ).focus();
 
         });
 
@@ -464,7 +472,7 @@
                                         }
 
                                         // Guardando os elementos retornados pelo pagseguro dentro do elemento do DOM.
-                                        $option.data( "installlment", installment );
+                                        $option.data( "installment", installment );
 
                                         // Alimentando a lista do combo.
                                         $( "#installments_field" ).append( $option );
@@ -472,8 +480,6 @@
                                     }
                                 
                                 });
-
-                                //*/
 
                             },
                             error: function(response) {
