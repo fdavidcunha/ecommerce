@@ -549,7 +549,62 @@
             return true;
         }
 
-        // Obtendo o formulário de envio.
+        $( "#form-boleto" ).on( "submit", function( e ) {
+        
+            // Cancelando o redirecionamento da página.
+            e.preventDefault();
+
+            // Validando o CPF.
+            if ( !isValidCPF( $( "#form-boleto [name=cpf]" ).val() ) ) {
+
+                showError( "CPF inválido!" );
+                return false;
+
+            }
+
+            // Obtendo todos os campos do formulário.
+            var formData = $( this ).serializeArray();
+
+            // Transformando os campos da página em um objeto único.
+            var params = {};
+
+            $.each( formData, function( index, field ) {
+
+                params[ field.name ] = field.value;
+
+            });
+
+            params.hash = PagSeguroDirectPayment.getSenderHash();
+
+            // Utilizando o JQuery para criar uma solicitação AJAX, via POST, para uma rota.
+
+            // Rota
+            // Passando os parâmetros concatenados.
+            // Função de callback 
+
+            $.post(
+                "/payment/boleto",  
+                $.param( params ),  
+                function(r){      
+
+                    var response = JSON.parse( r );
+
+                    if ( response.success ) {
+
+                        window.location.href = "/payment/success/boleto";
+
+                    } else {
+
+                        showError( "Não foi possível efetuar o pagamento!" );
+
+                    }
+
+                }
+            );
+
+        });
+
+        // Obtendo o formulário de envio do pagamento com cartão de crédito.
         $( "#form-credit" ).on( "submit", function( e ) {
 
             // Cancelando o redirecionamento da página.
