@@ -8,18 +8,21 @@
 	class Config
 	{
 		
-		const SANDBOX             = true;
-		const SANDBOX_EMAIL       = "f.david.cunha@gmail.com";
-		const SANDBOX_TOKEN       = "E0B0B718A2EA40D3AE599033F57E8384";
-		const SANDBOX_SESSIONS    = 'https://ws.sandbox.pagseguro.uol.com.br/v2/sessions';
-		const SANDBOX_URL_JS      = 'https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js';
-		const PRODUCTION_EMAIL    = 'f.david.cunha@gmail.com';
-		const PRODUCTION_TOKEN    = 'F80BD77AC0FB45E9A252BEC4E9AFA579';
-		const PRODUCTION_SESSIONS = 'https://ws.pagseguro.uol.com.br/v2/sessions';
-		const PRODUCTION_URL_JS   = 'https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js';
+		const SANDBOX                    = true;
+		const SANDBOX_EMAIL              = "f.david.cunha@gmail.com";
+		const SANDBOX_TOKEN              = "E0B0B718A2EA40D3AE599033F57E8384";
+		const SANDBOX_SESSIONS           = 'https://ws.sandbox.pagseguro.uol.com.br/v2/sessions';
+		const SANDBOX_URL_JS             = 'https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js';
+		const SANDBOX_URL_TRANSACTION    = 'https://ws.sandbox.pagseguro.uol.com.br/v2/transactions';
+
+		const PRODUCTION_EMAIL           = 'f.david.cunha@gmail.com';
+		const PRODUCTION_TOKEN           = 'F80BD77AC0FB45E9A252BEC4E9AFA579';
+		const PRODUCTION_SESSIONS        = 'https://ws.pagseguro.uol.com.br/v2/sessions';
+		const PRODUCTION_URL_JS          = 'https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js';
+		const PRODUCTION_URL_TRANSACTION = 'https://ws.pagseguro.uol.com.br/v2/transactions';
 		
-		// Máximo de parcelas sem juros.
-		const MAX_INSTALLMENT_NO_INTEREST = 1;
+		// Máximo de parcelas sem juros. Não pode ser menor que 2 visto que 1 parcela por padrão já não tem juros.
+		const MAX_INSTALLMENT_NO_INTEREST = 2;
 
 		// Máximo de parcelas.
 		const MAX_INSTALLMENT = 1;
@@ -60,6 +63,13 @@
 		{
 
 			return ( Config::SANDBOX === true ) ? Config::SANDBOX_URL_JS : Config::PRODUCTION_URL_JS;
+
+		}
+
+		public static function getUrlTransaction()
+		{
+
+			return ( Config::SANDBOX === true ) ? Config::SANDBOX_URL_TRANSACTION : Config::PRODUCTION_URL_TRANSACTION;
 
 		}
 

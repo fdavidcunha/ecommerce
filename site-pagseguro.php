@@ -92,13 +92,15 @@
 
 		$payment->setCreditCard( $creditCard );
 
+		Transporter::sendTransaction( $payment );
 
-		$dom = $payment->getDOMDocument();
+		echo json_encode( [ 'success' => true ] );
+
+		//$dom = $payment->getDOMDocument();
 		//$test = $payment->getDOMElement();
 		//$testNode = $dom->importNode( $test, true );
 		//$dom->appendChild( $testNode );
-
-		echo $dom->saveXml();
+		//echo $dom->saveXml();
 
 	});
 

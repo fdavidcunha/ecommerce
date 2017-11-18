@@ -50,6 +50,7 @@
 			$quantity = $dom->createElement( "quantity", $this->quantity );
 			$quantity = $installment->appendChild( $quantity );
 
+			// Por padrão, só uma parcela, já é considerada sem juros. Quando só existe uma parcela não é necessário enviar o campo abaixo.
 			$noInterestInstallmentQuantity = $dom->createElement( "noInterestInstallmentQuantity", Config::MAX_INSTALLMENT_NO_INTEREST );
 			$noInterestInstallmentQuantity = $installment->appendChild( $noInterestInstallmentQuantity );
 
