@@ -2,6 +2,9 @@
 
 	namespace Hcode\PagSeguro;
 
+	// Caso estiver testando, a linha abaixo deve estar descomentada (assim o pagseguro conseguirá enviar requisições locais via JavaScript)
+ 	header("access-control-allow-origin: https://sandbox.pagseguro.uol.com.br");
+
 	use Exception;
 	use DOMDocument;
 	use DOMElement;
