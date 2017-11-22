@@ -13,10 +13,193 @@
 	use \Hcode\PagSeguro\CreditCard;
 	use \Hcode\PagSeguro\Item;
 	use \Hcode\PagSeguro\Payment;
+	use \Hcode\PagSeguro\Bank;	
 	use \Hcode\PagSeguro\CreditCard\Holder;
 	use \Hcode\PagSeguro\CreditCard\Installment;
 
-	# Rota para o pagamento do pagseguro.
+	$app->post( '/payment/notification', function() {
+
+		Transporter::getNotification( $_POST[ 'notificationCode' ], $_POST[ 'notificationType' ] );
+
+	});
+
+	$app->get( '/payment/success/debit', function() {
+	
+		User::verifyLogin( false );
+
+		$order = new Order;
+		$order->getFromSession();
+		$order->get( (int)$order->getidorder() );
+
+		$page = new Page();
+		$page->setTpl( 'payment-success-debit', [
+			'order' => $order->getValues()
+		] );
+
+	});
+
+	$app->get( '/payment/success/boleto', function() {
+	
+		User::verifyLogin( false );
+
+		$order = new Order;
+		$order->getFromSession();
+		$order->get( (int)$order->getidorder() );
+
+		$page = new Page();
+		$page->setTpl( 'payment-success-boleto', [
+			'order' => $order->getValues()
+		] );
+
+	});
+
+	$app->get( '/payment/success', function() {
+	
+		User::verifyLogin( false );
+
+		$order = new Order;
+		$order->getFromSession();
+
+		$page = new Page();
+		$page->setTpl( 'payment-success', [
+			'order' => $order->getValues()
+		] );
+
+	});
+
+	# Rota para o pagamento do pagseguro com débito.
+	$app->post( '/payment/debit', function() {
+
+		User::verifyLogin( false );
+
+		$order = new Order();
+		$order->getFromSession();
+
+		// Recarregando as informações do pedido.
+		$order->get( (int)$order->getidorder() );
+
+		$address = $order->getAddress();
+
+		$cart = $order->getCart();
+
+		$cpf = new Document( Document::CPF, $_POST[ 'cpf' ] );
+
+		$phone = new Phone( $_POST[ 'ddd' ], $_POST[ 'phone' ] );
+
+		$shippingAddress = new Address( 
+			$address->getdesaddress(), 
+			$address->getdesnumber(), 
+			$address->getdescomplement(),
+			$address->getdesdistrict(), 
+			$address->getdeszipcode(), 
+			$address->getdescity(), 
+			$address->getdesstate(), 
+			$address->getdescountry()
+		);
+
+		$birthDate = new DateTime( $_POST[ 'birth' ] );
+
+		$sender = new Sender( 
+			$order->getdesperson(), 
+			$cpf, 
+			$birthDate, 
+			$phone, 
+			$order->getdesemail(),
+			$_POST[ 'hash' ] );
+
+		$shipping = new Shipping( $shippingAddress, Shipping::PAC, (float)$cart->getvlfreight() );
+
+		$payment = new Payment( $order->getidorder(), $sender, $shipping );
+
+		foreach ( $cart->getProducts() as $product ) {
+			
+			$item = new Item(
+				(int)$product[ 'idproduct' ],
+				$product[ 'desproduct' ],
+				(float)$product[ 'vlprice' ],
+				(int)$product[ 'nrqtd' ]
+			);
+
+			$payment->addItem( $item );
+
+		}
+
+		$bank = new Bank( $_POST[ 'bank' ] );
+
+		$payment->setBank( $bank );
+
+		Transporter::sendTransaction( $payment );
+
+		echo json_encode( [ 'success' => true ] );
+
+	});
+
+	# Rota para o pagamento do pagseguro com boletos.
+	$app->post( '/payment/boleto', function() {
+
+		User::verifyLogin( false );
+
+		$order = new Order();
+		$order->getFromSession();
+
+		// Recarregando as informações do pedido.
+		$order->get( (int)$order->getidorder() );
+
+		$address = $order->getAddress();
+
+		$cart = $order->getCart();
+
+		$cpf = new Document( Document::CPF, $_POST[ 'cpf' ] );
+
+		$phone = new Phone( $_POST[ 'ddd' ], $_POST[ 'phone' ] );
+
+		$shippingAddress = new Address( 
+			$address->getdesaddress(), 
+			$address->getdesnumber(), 
+			$address->getdescomplement(),
+			$address->getdesdistrict(), 
+			$address->getdeszipcode(), 
+			$address->getdescity(), 
+			$address->getdesstate(), 
+			$address->getdescountry()
+		);
+
+		$birthDate = new DateTime( $_POST[ 'birth' ] );
+
+		$sender = new Sender( 
+			$order->getdesperson(), 
+			$cpf, 
+			$birthDate, 
+			$phone, 
+			$order->getdesemail(),
+			$_POST[ 'hash' ] );
+
+		$shipping = new Shipping( $shippingAddress, Shipping::PAC, (float)$cart->getvlfreight() );
+
+		$payment = new Payment( $order->getidorder(), $sender, $shipping );
+
+		foreach ( $cart->getProducts() as $product ) {
+			
+			$item = new Item(
+				(int)$product[ 'idproduct' ],
+				$product[ 'desproduct' ],
+				(float)$product[ 'vlprice' ],
+				(int)$product[ 'nrqtd' ]
+			);
+
+			$payment->addItem( $item );
+
+		}
+
+		$payment->setBoleto();
+
+		Transporter::sendTransaction( $payment );
+
+		echo json_encode( [ 'success' => true ] );
+
+	});
+
+	# Rota para o pagamento do pagseguro com cartão de crédito.
 	$app->post( '/payment/credit', function() {
 
 		User::verifyLogin( false );
@@ -92,13 +275,15 @@
 
 		$payment->setCreditCard( $creditCard );
 
+		Transporter::sendTransaction( $payment );
 
-		$dom = $payment->getDOMDocument();
+		echo json_encode( [ 'success' => true ] );
+
+		//$dom = $payment->getDOMDocument();
 		//$test = $payment->getDOMElement();
 		//$testNode = $dom->importNode( $test, true );
 		//$dom->appendChild( $testNode );
-
-		echo $dom->saveXml();
+		//echo $dom->saveXml();
 
 	});
 

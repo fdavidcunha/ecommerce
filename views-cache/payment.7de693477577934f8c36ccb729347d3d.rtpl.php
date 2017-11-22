@@ -528,28 +528,150 @@
         });
 
         // Função para validação de CPF.
-        function isValidCPF(number) {
+        function isValidCPF( number ) {
+            
             var sum;
             var rest;
+            
             sum = 0;
-            if (number == "00000000000") return false;
+            
+            if ( number == "00000000000" ) return false;
 
-            for (i=1; i<=9; i++) sum = sum + parseInt(number.substring(i-1, i)) * (11 - i);
-            rest = (sum * 10) % 11;
+            for ( i = 1; i <= 9; i++ ) sum = sum + parseInt( number.substring( i - 1, i ) ) * ( 11 - i );
+            
+            rest = ( sum * 10 ) % 11;
 
-            if ((rest == 10) || (rest == 11))  rest = 0;
-            if (rest != parseInt(number.substring(9, 10)) ) return false;
+            if ( ( rest == 10 ) || ( rest == 11 ) )  rest = 0;
+            
+            if ( rest != parseInt( number.substring( 9, 10 ) ) ) return false;
 
             sum = 0;
-            for (i = 1; i <= 10; i++) sum = sum + parseInt(number.substring(i-1, i)) * (12 - i);
-            rest = (sum * 10) % 11;
 
-            if ((rest == 10) || (rest == 11))  rest = 0;
-            if (rest != parseInt(number.substring(10, 11) ) ) return false;
+            for ( i = 1; i <= 10; i++ ) sum = sum + parseInt( number.substring( i - 1, i ) ) * ( 12 - i );
+            
+            rest = ( sum * 10 ) % 11;
+
+            if ( ( rest == 10 ) || ( rest == 11 ) )  rest = 0;
+            
+            if ( rest != parseInt( number.substring( 10, 11 ) ) ) return false;
+            
             return true;
+
         }
 
-        // Obtendo o formulário de envio.
+        // Obtendo o formulário de envio do pagamento com débito.
+        $( "#form-debit" ).on( "submit", function( e ) {
+        
+            // Cancelando o redirecionamento da página.
+            e.preventDefault();
+
+            // Validando o CPF.
+            if ( !isValidCPF( $( "#form-debit [name=cpf]" ).val() ) ) {
+
+                showError( "CPF inválido!" );
+                return false;
+
+            }
+
+            // Obtendo todos os campos do formulário.
+            var formData = $( this ).serializeArray();
+
+            // Transformando os campos da página em um objeto único.
+            var params = {};
+
+            $.each( formData, function( index, field ) {
+
+                params[ field.name ] = field.value;
+
+            });
+
+            params.hash = PagSeguroDirectPayment.getSenderHash();
+
+            // Utilizando o JQuery para criar uma solicitação AJAX, via POST, para uma rota.
+
+            // Rota
+            // Passando os parâmetros concatenados.
+            // Função de callback 
+
+            $.post(
+                "/payment/debit",  
+                $.param( params ),  
+                function(r){      
+
+                    var response = JSON.parse( r );
+
+                    if ( response.success ) {
+
+                        window.location.href = "/payment/success/debit";
+
+                    } else {
+
+                        showError( "Não foi possível efetuar o pagamento!" );
+
+                    }
+
+                }
+            );
+
+        });
+
+        // Obtendo o formulário de envio do pagamento com boleto.
+        $( "#form-boleto" ).on( "submit", function( e ) {
+        
+            // Cancelando o redirecionamento da página.
+            e.preventDefault();
+
+            // Validando o CPF.
+            if ( !isValidCPF( $( "#form-boleto [name=cpf]" ).val() ) ) {
+
+                showError( "CPF inválido!" );
+                return false;
+
+            }
+
+            // Obtendo todos os campos do formulário.
+            var formData = $( this ).serializeArray();
+
+            // Transformando os campos da página em um objeto único.
+            var params = {};
+
+            $.each( formData, function( index, field ) {
+
+                params[ field.name ] = field.value;
+
+            });
+
+            params.hash = PagSeguroDirectPayment.getSenderHash();
+
+            // Utilizando o JQuery para criar uma solicitação AJAX, via POST, para uma rota.
+
+            // Rota
+            // Passando os parâmetros concatenados.
+            // Função de callback 
+
+            $.post(
+                "/payment/boleto",  
+                $.param( params ),  
+                function(r){      
+
+                    var response = JSON.parse( r );
+
+                    if ( response.success ) {
+
+                        window.location.href = "/payment/success/boleto";
+
+                    } else {
+
+                        showError( "Não foi possível efetuar o pagamento!" );
+
+                    }
+
+                }
+            );
+
+        });
+
+        // Obtendo o formulário de envio do pagamento com cartão de crédito.
         $( "#form-credit" ).on( "submit", function( e ) {
 
             // Cancelando o redirecionamento da página.
@@ -606,7 +728,17 @@
                         $.param( params ),  
                         function(r){      
 
-                            console.log(r);
+                            var response = JSON.parse( r );
+
+                            if ( response.success ) {
+
+                                window.location.href = "/payment/success";
+
+                            } else {
+
+                                showError( "Não foi possível efetuar o pagamento!" );
+
+                            }
 
                         }
                     );

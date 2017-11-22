@@ -45,13 +45,45 @@ class Order extends Model {
 
 		$sql = new Sql();
 		
-		$results = $sql->select(     "select * 
+		$results = $sql->select(     "select a.idorder,
+											 a.idcart,
+											 a.iduser,
+											 a.idstatus,
+											 a.idaddress,
+											 a.vltotal,
+											 a.dtregister,
+											 b.desstatus,
+											 c.dessessionid,
+											 c.deszipcode,
+											 c.vlfreight,
+											 c.nrdays,
+											 d.idperson,
+											 d.deslogin,
+											 e.desaddress,
+											 e.desnumber,
+											 e.descomplement,
+											 e.descity,
+											 e.desstate,
+											 e.descountry,
+											 e.deszipcode,
+											 e.desdistrict,
+											 f.desperson,
+											 f.desemail,
+											 f.nrphone,
+											 g.descode,
+											 g.vlgrossamount,
+											 g.vldiscountamount,
+											 g.vlfeeamount,
+											 g.vlnetamount,
+											 g.vlextraamount,
+											 g.despaymentlink
 			                            from tb_orders       a
 			                      inner join tb_ordersstatus b using( idstatus )
 			                      inner join tb_carts        c using( idcart )
 			                      inner join tb_users        d on d.iduser = a.iduser
 			                      inner join tb_addresses    e using ( idaddress )
 			                      inner join tb_persons      f on f.idperson = d.idperson
+			                       left join tb_orderspagseguro g on g.idorder = a.idorder
 			                           where a.idorder = :idorder", [ 
 			                     ':idorder' => $idorder
 		] );
@@ -224,6 +256,38 @@ class Order extends Model {
 		$address->setData( $this->getValues() );
 
 		return $address;
+
+	}
+
+	public function setPagSeguroTransactionResponse( $descode, 
+													 $vlgrossamount, 
+													 $vldiscountamount, 
+													 $vlfeeamount, 
+													 $vlnetamount, 
+													 $vlextraamount, 
+													 $despaymentlink = '' )
+	{
+	
+		$consulta = "call sp_orderspagseguro_save( :pidorder, 
+			                                       :pdescode, 
+			                                       :pvlgrossamount, 
+			                                       :pvldiscountamount, 
+			                                       :pvlfeeamount, 
+			                                       :pvlnetamount, 
+			                                       :pvlextraamount, 
+			                                       :pdespaymentlink )";
+
+		$sql = new Sql();
+		$sql->query( $consulta, [
+			'pidorder'          => $this->getidorder(),
+			'pdescode'          => $descode,
+			'pvlgrossamount'    => $vlgrossamount,
+			'pvldiscountamount' => $vldiscountamount,
+			'pvlfeeamount'      => $vlfeeamount,
+			'pvlnetamount'      => $vlnetamount,
+			'pvlextraamount'    => $vlextraamount,
+			'pdespaymentlink'   => $despaymentlink,
+		]);
 
 	}
 

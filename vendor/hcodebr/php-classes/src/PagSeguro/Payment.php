@@ -2,6 +2,9 @@
 
 	namespace Hcode\PagSeguro;
 
+	// Caso estiver testando, a linha abaixo deve estar descomentada (assim o pagseguro conseguirá enviar requisições locais via JavaScript)
+ 	header("access-control-allow-origin: https://sandbox.pagseguro.uol.com.br");
+
 	use Exception;
 	use DOMDocument;
 	use DOMElement;
@@ -12,8 +15,8 @@
 
 		private $mode        = "default";
 		private $currency    = "BRL";
-		private $extraAmount = 0;   // Acréscimo ou desconto ao valor total.
-		private $reference   = "";  // Meu número.
+		private $extraAmount = 0.00;   // Acréscimo ou desconto ao valor total.
+		private $reference   = "";     // Meu número.
 		private $items       = [];
 		private $sender;
 		private $shipping;
@@ -105,7 +108,7 @@
 			$shipping = $dom->importNode( $shipping, true );
 			$shipping = $payment->appendChild( $shipping );
 
-			$extraAmount = $dom->createElement( "extraAmount", $this->extraAmount );
+			$extraAmount = $dom->createElement( "extraAmount", number_format( $this->extraAmount, 2, ".", '' ) );
 			$extraAmount = $payment->appendChild( $extraAmount );
 
 			$method = $dom->createElement( "method", $this->method );
