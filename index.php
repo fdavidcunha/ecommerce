@@ -1,4 +1,7 @@
 <?php 
+    error_reporting( -1 );
+    ini_set( 'display_errors', 1 );
+
 	session_start();
 
 	require_once("vendor/autoload.php");
@@ -30,12 +33,14 @@
   		exit;
 	});
 
-	$app->notFound( function() use ( $app ) {
-
-		http_response_code( 500 );
-  		echo file_get_contents( 'res/404.html' );
-  		exit;
-	});
+    $app->error( function ( \Exception $e ) use ( $app ) {
+        
+        //$app->render( 'res/500.html');
+        echo $e->getMessage();
+        echo "<br>";
+        echo file_get_contents( 'res/404.html' );
+        exit;
+    });
 
 	/*$app_ = new \Slim\App();
 
