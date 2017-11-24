@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `db_ecommerce` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `db_ecommerce`;
+﻿--CREATE DATABASE  IF NOT EXISTS `u581345987_ssaud` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE u581345987_ssaud;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: db_ecommerce
+-- Host: 127.0.0.1    Database: u581345987_ssaud
 -- ------------------------------------------------------
 -- Server version	5.5.5-10.1.19-MariaDB
 
@@ -222,7 +222,7 @@ CREATE TABLE `tb_persons` (
 
 LOCK TABLES `tb_persons` WRITE;
 /*!40000 ALTER TABLE `tb_persons` DISABLE KEYS */;
-INSERT INTO `tb_persons` VALUES (1,'JoÃ£o Rangel','admin@hcode.com.br',2147483647,'2017-03-01 03:00:00'),(7,'Suporte','suporte@hcode.com.br',1112345678,'2017-03-15 16:10:27');
+INSERT INTO `tb_persons` VALUES (1,'Suporte Administrador','proprius.sistemas@gmail.com.br',2147483647,'2017-03-01 03:00:00'),(7,'Suporte','suporte@hcode.com.br',1112345678,'2017-03-15 16:10:27');
 /*!40000 ALTER TABLE `tb_persons` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -247,16 +247,6 @@ CREATE TABLE `tb_products` (
   PRIMARY KEY (`idproduct`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tb_products`
---
-
-LOCK TABLES `tb_products` WRITE;
-/*!40000 ALTER TABLE `tb_products` DISABLE KEYS */;
-INSERT INTO `tb_products` VALUES (1,'Smartphone Android 7.0',999.95,75.00,151.00,80.00,167.00,'smartphone-android-7.0','2017-03-13 03:00:00'),(2,'SmartTV LED 4K',3925.99,917.00,596.00,288.00,8600.00,'smarttv-led-4k','2017-03-13 03:00:00'),(3,'Notebook 14\" 4GB 1TB',1949.99,345.00,23.00,30.00,2000.00,'notebook-14-4gb-1tb','2017-03-13 03:00:00');
-/*!40000 ALTER TABLE `tb_products` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `tb_productscategories`
@@ -405,7 +395,7 @@ LOCK TABLES `tb_orderspagseguro` WRITE;
 UNLOCK TABLES;
 
 --
--- Dumping routines for database 'db_ecommerce'
+-- Dumping routines for database 'u581345987_ssaud'
 --
 /*!50003 DROP PROCEDURE IF EXISTS `sp_userspasswordsrecoveries_create` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -417,7 +407,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_userspasswordsrecoveries_create`(
+CREATE DEFINER=`u581345987_root`@`localhost` PROCEDURE `sp_userspasswordsrecoveries_create`(
 piduser INT,
 pdesip VARCHAR(45)
 )
@@ -445,7 +435,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_usersupdate_save`(
+CREATE DEFINER=`u581345987_root`@`localhost` PROCEDURE `sp_usersupdate_save`(
 piduser INT,
 pdesperson VARCHAR(64), 
 pdeslogin VARCHAR(64), 
@@ -494,7 +484,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_users_delete`(
+CREATE DEFINER=`u581345987_root`@`localhost` PROCEDURE `sp_users_delete`(
 piduser INT
 )
 BEGIN
@@ -536,7 +526,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_users_save`(
+CREATE DEFINER=`u581345987_root`@`localhost` PROCEDURE `sp_users_save`(
 pdesperson VARCHAR(64), 
 pdeslogin VARCHAR(64), 
 pdespassword VARCHAR(256), 

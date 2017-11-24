@@ -16,7 +16,7 @@ class Cart extends Model {
 
 		$cart = new Cart();
 
-		if ( isset( $_SESSION[ Cart::SESSION ] ) && $_SESSION[ Cart::SESSION ][ 'idcart' ] > 0 ) {
+		if ( isset( $_SESSION[ Cart::SESSION ][ 'idcart' ] ) && $_SESSION[ Cart::SESSION ][ 'idcart' ] > 0 ) {
 
 			$cart->get( (int)$_SESSION[ Cart::SESSION ][ 'idcart' ] );
 
@@ -105,7 +105,11 @@ class Cart extends Model {
 			':nrdays'       => $this->getnrdays()
 		]);
 
-		$this->setData( $results[ 0 ] );
+		if ( count( $results ) > 0 ) {
+		
+			$this->setData( $results[ 0 ] );
+
+		}
 
 	}
 

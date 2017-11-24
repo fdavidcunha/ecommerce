@@ -27,7 +27,11 @@ class Category extends Model {
 	                                ":descategory" => $this->getdescategory() ) 
 	                           );
 
-		$this->setData( $results[ 0 ] );
+		if ( count( $results ) > 0 ) {
+			
+			$this->setData( $results[ 0 ] );
+
+		}
 
 		Category::updateFile();
 
@@ -39,7 +43,11 @@ class Category extends Model {
 		$sql = new Sql();
 		$results = $sql->select( "select * from tb_categories where idcategory = :idcategory", array( ':idcategory' => $idcategory ) );
 
-		$this->setData( $results[ 0 ] );
+		if ( count( $results ) > 0 ) {
+			
+			$this->setData( $results[ 0 ] );
+
+		}
 
 	}
 
