@@ -33,27 +33,17 @@
   		exit;
 	});
 
+    // Redirecionamento para página de erro personalizada.
     $app->error( function ( \Exception $e ) use ( $app ) {
         
-        //$app->render( 'res/500.html');
-        echo $e->getMessage();
-        echo "<br>";
-        echo file_get_contents( 'res/404.html' );
-        exit;
+    	$errorData = array( 'error' => $e->getMessage() );
+        $app->render( 'res/500.html', $errorData, 500 );
+
+        //echo $e->getMessage();
+        //echo "<br>";
+        //echo file_get_contents( 'res/500.html' );
+        //exit;
     });
-
-	/*$app_ = new \Slim\App();
-
-	// get the app's di-container
-	$c = $app_->getContainer();
-	$c[ 'phpErrorHandler' ] = function ($c) {
-    	return function( $request, $response, $error ) use ( $c ) {
-        	return $c[ 'response' ]
-            	->withStatus( 500 )
-            	->withHeader( 'Content-Type', 'text/html' )
-            	->write( 'Vish... algo deu errado!' );
-    	};
-	};*/
 
 	$app->run();
  ?>
