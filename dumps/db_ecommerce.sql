@@ -28,16 +28,18 @@ CREATE TABLE `tb_addresses` (
   `idaddress` int(11) NOT NULL AUTO_INCREMENT,
   `idperson` int(11) NOT NULL,
   `desaddress` varchar(128) NOT NULL,
+  `desnumber` varchar(16) NOT NULL,
   `descomplement` varchar(32) DEFAULT NULL,
   `descity` varchar(32) NOT NULL,
   `desstate` varchar(32) NOT NULL,
   `descountry` varchar(32) NOT NULL,
-  `nrzipcode` int(11) NOT NULL,
+  `deszipcode` char(8) NOT NULL,
+  `desdistrict` varchar(32) NOT NULL,
   `dtregister` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idaddress`),
   KEY `fk_addresses_persons_idx` (`idperson`),
   CONSTRAINT `fk_addresses_persons` FOREIGN KEY (`idperson`) REFERENCES `tb_persons` (`idperson`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -57,11 +59,13 @@ DROP TABLE IF EXISTS `tb_carts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tb_carts` (
-  `idcart` int(11) NOT NULL,
+  `idcart` int(11) NOT NULL AUTO_INCREMENT,
   `dessessionid` varchar(64) NOT NULL,
   `iduser` int(11) DEFAULT NULL,
+  `deszipcode` char(8) DEFAULT NULL,
   `idaddress` int(11) DEFAULT NULL,
   `vlfreight` decimal(10,2) DEFAULT NULL,
+  `nrdays` int(11) DEFAULT NULL,
   `dtregister` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idcart`),
   KEY `FK_carts_users_idx` (`iduser`),
@@ -146,12 +150,15 @@ CREATE TABLE `tb_orders` (
   `idcart` int(11) NOT NULL,
   `iduser` int(11) NOT NULL,
   `idstatus` int(11) NOT NULL,
+  `idaddress` int(11) NOT NULL,
   `vltotal` decimal(10,2) NOT NULL,
   `dtregister` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idorder`),
   KEY `FK_orders_carts_idx` (`idcart`),
   KEY `FK_orders_users_idx` (`iduser`),
   KEY `fk_orders_ordersstatus_idx` (`idstatus`),
+  KEY `fk_orders_addresses_idx` (`idaddress`),
+  CONSTRAINT `fk_orders_addresses` FOREIGN KEY (`idaddress`) REFERENCES `tb_addresses` (`idaddress`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_orders_carts` FOREIGN KEY (`idcart`) REFERENCES `tb_carts` (`idcart`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_orders_ordersstatus` FOREIGN KEY (`idstatus`) REFERENCES `tb_ordersstatus` (`idstatus`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_orders_users` FOREIGN KEY (`iduser`) REFERENCES `tb_users` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -235,6 +242,7 @@ CREATE TABLE `tb_products` (
   `vllength` decimal(10,2) NOT NULL,
   `vlweight` decimal(10,2) NOT NULL,
   `desurl` varchar(128) NOT NULL,
+  `desdescription` text not null,
   `dtregister` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idproduct`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -340,7 +348,7 @@ UNLOCK TABLES;
 --
 -- Table structure for table `tb_userspasswordsrecoveries`
 --
-
+                      
 DROP TABLE IF EXISTS `tb_userspasswordsrecoveries`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -364,6 +372,36 @@ LOCK TABLES `tb_userspasswordsrecoveries` WRITE;
 /*!40000 ALTER TABLE `tb_userspasswordsrecoveries` DISABLE KEYS */;
 INSERT INTO `tb_userspasswordsrecoveries` VALUES (1,7,'127.0.0.1',NULL,'2017-03-15 16:10:59'),(2,7,'127.0.0.1','2017-03-15 13:33:45','2017-03-15 16:11:18'),(3,7,'127.0.0.1','2017-03-15 13:37:35','2017-03-15 16:37:12');
 /*!40000 ALTER TABLE `tb_userspasswordsrecoveries` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tb_orderspagseguro`
+--
+
+DROP TABLE IF EXISTS `tb_orderspagseguro`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tb_orderspagseguro` (
+  `idorder` int(11) NOT NULL,
+  `descode` varchar(36) NOT NULL,
+  `vlgrossamount` decimal(10,2) NOT NULL,
+  `vldiscountamount` decimal(10,2) NOT NULL,
+  `vlfeeamount` decimal(10,2) NOT NULL,
+  `vlnetamount` decimal(10,2) NOT NULL,
+  `vlextraamount` decimal(10,2) NOT NULL,
+  `despaymentlink` varchar(256) DEFAULT NULL,
+  `dtregister` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idorder`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tb_orderspagseguro`
+--
+
+LOCK TABLES `tb_orderspagseguro` WRITE;
+/*!40000 ALTER TABLE `tb_orderspagseguro` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_orderspagseguro` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -463,12 +501,24 @@ BEGIN
 	
     DECLARE vidperson INT;
     
+    SET FOREIGN_KEY_CHECKS = 0;
+	
 	SELECT idperson INTO vidperson
     FROM tb_users
     WHERE iduser = piduser;
+	
+    DELETE FROM tb_addresses WHERE idperson = vidperson;
+    DELETE FROM tb_addresses WHERE idaddress IN(SELECT idaddress FROM tb_orders WHERE iduser = piduser);
+	DELETE FROM tb_persons WHERE idperson = vidperson;
     
+    DELETE FROM tb_userslogs WHERE iduser = piduser;
+    DELETE FROM tb_userspasswordsrecoveries WHERE iduser = piduser;
+    DELETE FROM tb_orders WHERE iduser = piduser;
+    DELETE FROM tb_cartsproducts WHERE idcart IN(SELECT idcart FROM tb_carts WHERE iduser = piduser);
+    DELETE FROM tb_carts WHERE iduser = piduser;
     DELETE FROM tb_users WHERE iduser = piduser;
-    DELETE FROM tb_persons WHERE idperson = vidperson;
+    
+    SET FOREIGN_KEY_CHECKS = 1;
     
 END ;;
 DELIMITER ;
