@@ -13,7 +13,7 @@
 		const SANDBOX_TOKEN              = "E0B0B718A2EA40D3AE599033F57E8384";
 		const SANDBOX_SESSIONS           = 'https://ws.sandbox.pagseguro.uol.com.br/v2/sessions';
 		const SANDBOX_URL_JS             = 'https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js';
-		const SANDBOX_URL_TRANSACTION    = 'https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/notifications/';
+		const SANDBOX_URL_TRANSACTION    = 'https://ws.sandbox.pagseguro.uol.com.br/v2/transactions';
 		const SANDBOX_URL_NOTIFICATION   = 'https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/notifications/';
 
 		const PRODUCTION_EMAIL             = 'f.david.cunha@gmail.com';
@@ -30,7 +30,7 @@
 		const MAX_INSTALLMENT = 1;
 
 		// URL de retorno que será chamada quando o pagseguro der o retorno.
-		const NOTIFICATION_URL = "http://localhost/payment/notification";
+		const NOTIFICATION_URL = "http://www.hcodecommerce.com.br/payment/notification";
 
 		public static function getAuthentication()
 		{

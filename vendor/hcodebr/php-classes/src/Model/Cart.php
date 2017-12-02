@@ -22,6 +22,7 @@ class Cart extends Model {
 
 		} else {
 
+
 			$cart->getFromSessionID();
 
 			if ( !(int)$cart->getidcart() > 0 ) {

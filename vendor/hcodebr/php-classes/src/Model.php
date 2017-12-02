@@ -2,7 +2,9 @@
 
 namespace Hcode;
 
-class Model {
+use Hcode\InterfaceModel;
+
+class Model implements InterfaceModel{
 
 	private $values = [];
 
