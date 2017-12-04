@@ -1,97 +1,118 @@
-<?php if(!class_exists('Rain\Tpl')){exit;}?>    <div class="footer-top-area">
-        <div class="zigzag-bottom"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="footer-about-us">
-                        <h2>Sabor & Saúde</h2>
-                        <p>Nascemos de um quiosque simples na rua e nos especializamos em alimentar bem as pessoas e de forma saudável.</p>
-                        </br>
-                        <p>Edf. Luciano Costa</p>
-                        <p>Rua Dona Maria César, 170, Lj B</p>
-                        <p>Recife Antigo - Recife/PE</p>
-                        <p>CEP: 50.030-140</p>
-                        <p>F: 81</p>
-                        
-                        <div class="footer-social">
-                            <a href="https://www.facebook.com/saboresaudesaladadefrutas/" target="_blank">
-                                <i class="fa fa-facebook"></i>
-                            </a>
-                            <a href="#" target="_blank">
-                                <i class="fa fa-twitter"></i>
-                            </a>
-                            <a href="#" target="_blank">
-                                <i class="fa fa-youtube"></i>
-                            </a>
-                            <a href="#" target="_blank">
-                                <i class="fa fa-instagram"></i>
-                            </a>
-                            <a href="#" target="_blank">
-                                <i class="fa fa-linkedin"></i>
-                            </a>
-                            <a href="#" target="_blank">
-                                <i class="fa fa-google-plus"></i>
-                            </a>
+<?php if(!class_exists('Rain\Tpl')){exit;}?>        <div class="footer-top-area">
+            <div class="zigzag-bottom"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="footer-about-us">
+                            <h2>Sabor & Saúde</h2>
+                            <p>Nascemos de um quiosque simples na rua e nos especializamos em alimentar bem as pessoas e de forma saudável.</p>
+                            </br>
+                            <p>Edf. Luciano Costa</p>
+                            <p>Rua Dona Maria César, 170, Lj B</p>
+                            <p>Recife Antigo - Recife/PE</p>
+                            <p>CEP: 50.030-140</p>
+                            <p>Fone: 81 3224-1706</p>
+                            <p>Celular: 81 9.8845-1762 / 9.9785-3201</p>
+                            
+                            <div class="footer-social">
+                                <a href="https://www.facebook.com/saboresaudesaladadefrutas/" target="_blank">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a href="#" target="_blank">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                                <a href="#" target="_blank">
+                                    <i class="fa fa-youtube"></i>
+                                </a>
+                                <a href="#" target="_blank">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                                <a href="#" target="_blank">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                                <a href="#" target="_blank">
+                                    <i class="fa fa-google-plus"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="col-md-3 col-sm-6">
-                    <div class="footer-menu">
-                        <h2 class="footer-wid-title">Navegação </h2>
-                        <ul>
-                            <li><a href="#">Minha Conta</a></li>
-                            <li><a href="#">Meus Pedidos</a></li>
-                            <li><a href="#">Lista de Desejos</a></li>
-                        </ul>                        
+                    
+                    <div class="col-md-3 col-sm-6">
+                        <div class="footer-menu">
+                            <h2 class="footer-wid-title">Navegação </h2>
+                            <ul>
+                                <li><a href="#">Minha Conta</a></li>
+                                <li><a href="#">Meus Pedidos</a></li>
+                                <li><a href="#">Lista de Desejos</a></li>
+                            </ul>                        
+                        </div>
                     </div>
-                </div>
-                
-                <div class="col-md-3 col-sm-6">
-                    <div class="footer-menu">
-                        <h2 class="footer-wid-title">Categorias</h2>
-                        <ul>
-                            <?php require $this->checkTemplate("categories-menu");?>
-                        </ul>                        
+                    
+                    <div class="col-md-3 col-sm-6">
+                        <div class="footer-menu">
+                            <h2 class="footer-wid-title">Categorias</h2>
+                            <ul>
+                                <?php require $this->checkTemplate("categories-menu");?>
+                            </ul>                        
+                        </div>
                     </div>
+                    
+                    <div class="col-md-3 col-sm-6">
+                        <div class="span12">
+                            <div class="thumbnail center well well-small text-center">
+                                <h4>Notícias e novidades</h4>
+                                
+                                <p>Cadastre seu e-mail e fique por dentro de nossas novidades e promoções. É totalmente grátis e rápido!</p>
+                                
+                                <form action="" method="post">
+                                    <div class="input-prepend"><span class="add-on"><i class="icon-envelope"></i></span>
+                                        <input type="text" id="" name="" placeholder="Digite seu e-mail aqui">
+                                    </div>
+                                    <br />
+                                    <input type="submit" value="Increva-se agora!" class="btn btn-large" />
+                              </form>
+                            </div>    
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6">
+                        <div class="footer-newsletter">
+                            <h2 class="footer-wid-title">Notícias e novidades</h2>
+                            <p>Cadastre seu e-mail e fique por dentro de nossas novidades e promoções!</p>
+                            <div class="newsletter-form">
+                                <form action="#">
+                                    <input type="email" placeholder="Seu e-mail">
+                                    <input type="submit" value="Cadastrar">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                
-                <div class="col-md-3 col-sm-6">
-                    <div class="footer-newsletter">
-                        <h2 class="footer-wid-title">Notícias e novidades</h2>
-                        <p>Cadastre seu e-mail e fique por dentro de nossas novidades e promoções!</p>
-                        <div class="newsletter-form">
-                            <form action="#">
-                                <input type="email" placeholder="Seu e-mail">
-                                <input type="submit" value="Cadastrar">
-                            </form>
+            </div>
+        </div> <!-- End footer top area -->
+        
+        <div class="footer-bottom-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="copyright">
+                            <p>&copy; 2017 Proprius Sistemas (proprius.sistemas@gmail.com). <a href="http://www.propriussistemas.com.br" target="_blank">www.propriussistemas.com.br</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="footer-card-icon">
+                            <i class="fa fa-cc-sodexo"></i>
+                            <i class="fa fa-cc-mastercard"></i>
+                            <i class="fa fa-cc-paypal"></i>
+                            <i class="fa fa-cc-visa"></i>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div> <!-- End footer top area -->
-    
-    <div class="footer-bottom-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="copyright">
-                        <p>&copy; 2017 Proprius Sistemas (proprius.sistemas@gmail.com). <a href="http://www.propriussistemas.com.br" target="_blank">www.propriussistemas.com.br</a></p>
-                    </div>
-                </div>
-                
-                <div class="col-md-4">
-                    <div class="footer-card-icon">
-                        <i class="fa fa-cc-sodexo"></i>
-                        <i class="fa fa-cc-mastercard"></i>
-                        <i class="fa fa-cc-paypal"></i>
-                        <i class="fa fa-cc-visa"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> <!-- End footer bottom area -->
+        </div> <!-- End footer bottom area -->
+    </div><!-- / Wrapper End -->
    
     <!-- Javascript files -->
     <!-- Latest jQuery form server -->

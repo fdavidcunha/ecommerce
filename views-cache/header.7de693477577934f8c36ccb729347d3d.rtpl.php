@@ -52,149 +52,152 @@
   </head>
   <body>
    
-    <!-- End header area -->
-    <div class="header-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="user-menu">
-                        <ul>
-                            
-                            <li>
-                                <a href="/profile">
-                                    <i class="fa fa-user"></i> Minha Conta
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-heart"></i> Lista de Desejos
-                                </a></li>
-                            <li>
-                                <a href="/cart">
-                                    <i class="fa fa-shopping-cart"></i> Meu Carrinho
-                                </a>
-                            </li>
-                            
-                            <?php if( checkLogin(false) ){ ?>
-                            <li>
-                                <a href="/profile">
-                                    <i class="fa fa-user"></i> <?php echo getUserName(); ?>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/logout">
-                                    <i class="fa fa-close"></i> Sair
-                                </a>
-                            </li>
-                            <?php }else{ ?>
-                            <li>
-                                <a href="/login">
-                                    <i class="fa fa-lock"></i> Login
-                                </a>
-                            </li>
-                            <?php } ?>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="col-md-4">
-                    <div class="header-right">
-                        
-                        <ul class="list-unstyled list-inline">
-                            
-                            <li class="dropdown dropdown-small">
-                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#">
-                                    <span class="key">
-                                        <i class="fa fa-money" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="value">Real - BR</span>
-                                    <b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="#">Real - BR</a>
-                                    </li>
-                                    <!--<li><a href="#">USD</a></li>-->
-                                </ul>
-                            </li>
-
-                            <li class="dropdown dropdown-small">
-                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#">
-                                    <span class="key">
-                                        <i class="fa fa-language" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="value">Português</span>
-                                    <b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Português</a></li>
-                                    <!--<li><a href="#">Inglês</a></li>
-                                    <li><a href="#">Espanhol</a></li>-->
-                                </ul>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div> 
-    <!-- End header area -->
+    <!-- Page Wrapper -->
+    <div class="wrapper">
     
-   
-    <div class="mainmenu-area">
-        <div class="container">
-            
-            <div class="row">
-                
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div> 
-
-                <div class="col-md-8">
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li class="active">
-                                <a href="/">Home</a>
-                            </li>
-                            <li>
-                                <a href="#">Cardápio</a>
-                            </li>
-                            <li>
-                                <a href="#">Promoções</a>
-                            </li>
-                            <li>
-                                <a href="#">Sobre nós</a>
-                            </li>
-                            <li>
-                                <a href="/cart">Carrinho</a>
-                            </li>
-                        </ul>
-                    </div>  
-                </div>
-
-                <div class="col-md-4">
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li>
-                                <a href="/cart">
-                                    <i class="fa fa-shopping-cart"></i> 
-                                    <span>Carrinho - </span>
-                                    <span class="cart-amunt">R$ <?php echo getCartVlSubTotal(); ?></span> 
-                                    <span class="product-count"><?php echo getCartNrQtd(); ?></span>
-                                </a>
-                            </li>
-                        </ul>
+        <!-- End header area -->
+        <div class="header-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="user-menu">
+                            <ul>
+                                
+                                <li>
+                                    <a href="/profile">
+                                        <i class="fa fa-user"></i> Minha Conta
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-heart"></i> Lista de Desejos
+                                    </a></li>
+                                <li>
+                                    <a href="/cart">
+                                        <i class="fa fa-shopping-cart"></i> Meu Carrinho
+                                    </a>
+                                </li>
+                                
+                                <?php if( checkLogin(false) ){ ?>
+                                <li>
+                                    <a href="/profile">
+                                        <i class="fa fa-user"></i> <?php echo getUserName(); ?>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/logout">
+                                        <i class="fa fa-close"></i> Sair
+                                    </a>
+                                </li>
+                                <?php }else{ ?>
+                                <li>
+                                    <a href="/login">
+                                        <i class="fa fa-lock"></i> Login
+                                    </a>
+                                </li>
+                                <?php } ?>
+                            </ul>
+                        </div>
                     </div>
+                    
+                    <div class="col-md-4">
+                        <div class="header-right">
+                            
+                            <ul class="list-unstyled list-inline">
+                                
+                                <li class="dropdown dropdown-small">
+                                    <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#">
+                                        <span class="key">
+                                            <i class="fa fa-money" aria-hidden="true"></i>
+                                        </span>
+                                        <span class="value">Real - BR</span>
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="#">Real - BR</a>
+                                        </li>
+                                        <!--<li><a href="#">USD</a></li>-->
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown dropdown-small">
+                                    <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#">
+                                        <span class="key">
+                                            <i class="fa fa-language" aria-hidden="true"></i>
+                                        </span>
+                                        <span class="value">Português</span>
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Português</a></li>
+                                        <!--<li><a href="#">Inglês</a></li>
+                                        <li><a href="#">Espanhol</a></li>-->
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div> 
+        <!-- End header area -->
+        
+       
+        <div class="mainmenu-area">
+            <div class="container">
+                
+                <div class="row">
+                    
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div> 
+
+                    <div class="col-md-8">
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                <li class="active">
+                                    <a href="/">Home</a>
+                                </li>
+                                <li>
+                                    <a href="#">Cardápio</a>
+                                </li>
+                                <li>
+                                    <a href="#">Promoções</a>
+                                </li>
+                                <li>
+                                    <a href="#">Sobre nós</a>
+                                </li>
+                                <li>
+                                    <a href="/cart">Carrinho</a>
+                                </li>
+                            </ul>
+                        </div>  
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <a href="/cart">
+                                        <i class="fa fa-shopping-cart"></i> 
+                                        <span>Carrinho - </span>
+                                        <span class="cart-amunt">R$ <?php echo getCartVlSubTotal(); ?></span> 
+                                        <span class="product-count"><?php echo getCartNrQtd(); ?></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
-
-        </div>
-    </div> <!-- End mainmenu area -->
+        </div> <!-- End mainmenu area -->

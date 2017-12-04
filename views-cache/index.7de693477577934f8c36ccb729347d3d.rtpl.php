@@ -129,7 +129,7 @@
                         data-easing="Power4.easeOut"
                         data-endspeed="500"
                         data-endeasing="Power4.easeIn"
-                        style="z-index: 3">The New
+                        style="z-index: 3">Experimente nossos
                     </div>
                     <!-- LAYER NR. 1.1 -->
                     <div class="tp-caption large_bold_grey heading customin customout"
@@ -146,7 +146,7 @@
                         data-endspeed="500"
                         data-endeasing="Power3.easeInOut"
                         data-captionhidden="on"
-                        style="z-index:5">CakeFactory
+                        style="z-index:5">Sucos natuais
                     </div>
                     <!-- LAYER NR. 2 -->
                     <div class="tp-caption customin customout"
@@ -187,7 +187,7 @@
                         data-endeasing="Power4.easeIn"
                         style="z-index: 3"><img class="img-responsive" src="/res/site/img/slider/s13.png" alt="" />
                     </div>
-                    <!-- LAYER NR. 2.3 -->
+                    <!-- LAYER NR. 2.3
                     <div class="tp-caption sft"
                         data-x="right" data-hoffset="-400"
                         data-y="80"
@@ -197,7 +197,7 @@
                         data-endspeed="500"
                         data-endeasing="Power4.easeIn"
                         style="z-index: 10"><span class="price-tag br-white">30%<br />Off</span>
-                    </div>
+                    </div> -->
                     <!-- LAYER NR. 3 -->
                     <div class="tp-caption finewide_verysmall_white_mw paragraph customin customout tp-resizeme"
                         data-x="20"
@@ -212,7 +212,7 @@
                         data-elementdelay="0.2"
                         data-endelementdelay="0.08"
                         data-endspeed="300"
-                        style="z-index: 10; max-width: auto; max-height: auto; white-space: nowrap;">Lorem ipsum dolor sit amet, consetetur<br/>  sadipscing elitr, sed diam nonumy<br/>  eirmod tempor invidunt ut labore et<br/>  dolore magna aliquyam erat, sed diam <br/> voluptua. At vero eos et accusam.
+                        style="z-index: 10; max-width: auto; max-height: auto; white-space: nowrap;">Da fruta ou detox.<br/>  Para manter a saúde e a bora forma<br/>  Sem adição de açúcar<br/>  Feito na hora.<br/>
                     </div>
                     <!-- LAYER NR. 4 -->
                     <div class="tp-caption sfb"
@@ -238,7 +238,7 @@
                         data-easing="Power4.easeOut"
                         data-endspeed="300"
                         data-endeasing="Linear.easeNone"
-                        data-captionhidden="off"><img class="img-responsive" src="/res/site/img/slider/s35.png" alt="" />
+                        data-captionhidden="off"><img class="img-responsive" src="/res/site/img/slider/sanduiche-natural.png" alt="" />
                     </div>
                     <!-- LAYERS NR. 2 -->
                     <div class="tp-caption lfr large_bold_grey heading white"
@@ -249,7 +249,7 @@
                         data-easing="Power4.easeOut"
                         data-endspeed="300"
                         data-endeasing="Linear.easeNone"
-                        data-captionhidden="off">Tasty Yammi
+                        data-captionhidden="off">Linha leve
                     </div>
                     <!-- LAYER NR. 3 -->
                     <div class="tp-caption whitedivider3px customin customout tp-resizeme"
@@ -280,7 +280,7 @@
                         data-elementdelay="0.08"
                         data-endelementdelay="0.08"
                         data-endspeed="500"
-                        style="z-index: 4; max-width: auto; max-height: auto; white-space: nowrap;">Hamburger
+                        style="z-index: 4; max-width: auto; max-height: auto; white-space: nowrap;">Sanduíches naturais
                     </div>
                     <!-- LAYER NR. 5 -->
                     <div class="tp-caption finewide_verysmall_white_mw white customin customout tp-resizeme text-right paragraph"
@@ -296,7 +296,7 @@
                         data-elementdelay="0.2"
                         data-endelementdelay="0.08"
                         data-endspeed="300"
-                        style="z-index: 10; max-width: auto; max-height: auto; white-space: nowrap;">Lorem ipsum dolor sit amet, consetetur  sadipscing elitr,<br/> nonumy voluptu ansetetur  sadipscing elit. <br/> sed diam quisquam est nonumy voluptu vero eos et.
+                        style="z-index: 10; max-width: auto; max-height: auto; white-space: nowrap;">Para quem não abre mão de um lanchinho sem sair da dieta.<br/>
                     </div>
                 </li>
                 <li data-transition="cube" data-slotamount="7" data-masterspeed="600" >
@@ -355,7 +355,7 @@
                         data-easing="Power4.easeOut"
                         data-endspeed="300"
                         data-endeasing="Linear.easeNone"
-                        data-captionhidden="off">Seats Reserve
+                        data-captionhidden="off">Sempre!
                     </div>
                     <!-- LAYERS NR. 5 -->
                     <div class="tp-caption skewfromright medium_text text-right paragraph"
@@ -366,7 +366,7 @@
                         data-easing="Power4.easeOut"
                         data-endspeed="400"
                         data-endeasing="Power4.easeOut"
-                        data-captionhidden="off">At vero eos etntium accu amet, adipisicing samus iusto<br />praese  delen itieos etconsectetur atque corrupti<br />praese etntiumder delen itierrupti.
+                        data-captionhidden="off">Compre, indiferente de qualquer plataforma<br />Sem instalação.<br />Ambiente totalmente grátis.
                     </div>
                     <!-- LAYERS NR. 6 // -->
                     <div class="tp-caption lfr modern_big_redbg br-red"
@@ -378,7 +378,7 @@
                         data-easing="Power4.easeOut"
                         data-endspeed="300"
                         data-endeasing="Linear.easeNone"
-                        data-captionhidden="off">Desktop or Laptop
+                        data-captionhidden="off">Desktop ou Notebook
                     </div>
                     <!-- LAYERS NR. 6.1 // -->
                     <div class="tp-caption lfr modern_big_redbg br-yellow"
@@ -390,7 +390,7 @@
                         data-easing="Power4.easeOut"
                         data-endspeed="300"
                         data-endeasing="Linear.easeNone"
-                        data-captionhidden="off">Tablet or Phone
+                        data-captionhidden="off">Tablet ou SmartPhone
                     </div>
                 </li>
             </ul>
@@ -406,7 +406,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="latest-product">
-                        <h2 class="section-title">Produtos</h2>
+                        </br></br></br>
+                        <h2 class="section-title">Em destaque</h2>
                         <div class="product-carousel">
                             
                             <?php $counter1=-1;  if( isset($products) && ( is_array($products) || $products instanceof Traversable ) && sizeof($products) ) foreach( $products as $key1 => $value1 ){ $counter1++; ?>
@@ -431,7 +432,6 @@
                                 
                                 <div class="product-carousel-price">
                                     <ins>R$ <?php echo formatPrice($value1["vlprice"]); ?></ins> 
-                                    <del>$100.00</del>
                                 </div> 
                             </div>
                             <?php } ?>
