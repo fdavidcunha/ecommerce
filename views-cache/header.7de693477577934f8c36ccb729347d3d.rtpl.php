@@ -13,6 +13,8 @@
     <meta name="author" content="David Ferreira f.david.cunha@gmail.com">
 
     <title>Sabor & Saúde - Comida saudável</title>
+    <link rel="shortcut icon" href="/res/site/img/favico.ico">
+
 
     <!-- Google Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
