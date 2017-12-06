@@ -97,7 +97,7 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="copyright">
-                            <p>&copy; 2017 Proprius Sistemas (proprius.sistemas@gmail.com). <a href="http://www.propriussistemas.com.br" target="_blank">www.propriussistemas.com.br</a></p>
+                            <p>&copy; 2017 Proprius Sistemas (proprius.sistemas@gmail.com). <a href="https://www.propriussistemas.com.br" target="_blank">www.propriussistemas.com.br</a></p>
                         </div>
                     </div>
                     
@@ -113,14 +113,23 @@
             </div>
         </div> <!-- End footer bottom area -->
     </div><!-- / Wrapper End -->
-   
+  
+    <!-- Scroll to top -->
+    <span class="totop">
+        <a href="#">
+            <i class="fa fa-angle-up"></i>
+        </a>
+    </span> 
+
     <!-- Javascript files -->
     <!-- Latest jQuery form server -->
     <script src="https://code.jquery.com/jquery.min.js"></script>
+    <script src="/res/site/js/jquery.js"></script>
     <!-- Biblioteca JS que controla templates -->
     <script src="/res/site/js/handlebars-v4.0.11.js"></script>
     <!-- Bootstrap JS form CDN -->
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="/res/site/js/bootstrap.min.js"></script>
     <!-- jQuery sticky menu -->
     <script src="/res/site/js/owl.carousel.min.js"></script>
     <script src="/res/site/js/jquery.sticky.js"></script>

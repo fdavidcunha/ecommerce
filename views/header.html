@@ -15,18 +15,21 @@
     <title>Sabor & Saúde - Comida saudável</title>
 
     <!-- Google Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
     
     <!-- Styles -->
     <!-- Bootstrap -->
     <link rel="stylesheet" href="/res/site/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/res/site/css/cake-factory-bootstrap.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/res/site/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/res/site/css/cake-factory-font-awesome.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/res/site/css/owl.carousel.css">
     <link rel="stylesheet" href="/res/site/css/style.css">
+    <link rel="stylesheet" href="/res/site/css/cake-factory-style.css">
     <link rel="stylesheet" href="/res/site/css/responsive.css">
     <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
     <link rel="stylesheet" href="/res/site/css/settings.css">     
@@ -174,9 +177,6 @@
                                 </li>
                                 <li>
                                     <a href="#">Sobre nós</a>
-                                </li>
-                                <li>
-                                    <a href="/cart">Carrinho</a>
                                 </li>
                             </ul>
                         </div>  

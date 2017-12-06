@@ -146,7 +146,7 @@
                         data-endspeed="500"
                         data-endeasing="Power3.easeInOut"
                         data-captionhidden="on"
-                        style="z-index:5">Sucos natuais
+                        style="z-index:5">Sucos naturais
                     </div>
                     <!-- LAYER NR. 2 -->
                     <div class="tp-caption customin customout"

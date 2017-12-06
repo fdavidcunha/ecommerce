@@ -9,9 +9,9 @@
 		
 		private $mail;
 
-		const USERNAME  = "pfv.nao.responda@gmail.com";
-		const PASSWORD  = "naoresponda";
-		const NAME_FROM = "Recuperador de Senha";
+		const USERNAME  = "contato@temsaboresaude.com.br";
+		const PASSWORD  = "di0EjUhG0Rj1";
+		const NAME_FROM = "Sabor e Saúde";
 
 		public function __construct( $toAddress, $toName, $subject, $tplName, $data = array() )
 		{
@@ -55,7 +55,7 @@
 			$this->mail->Debugoutput = 'html';
 
 			//Set the hostname of the mail server
-			$this->mail->Host = 'smtp.gmail.com';
+			$this->mail->Host = 'mx1.hostinger.com.br';
 			// use
 			// $mail->Host = gethostbyname('smtp.gmail.com');
 			// if your network does not support SMTP over IPv6
