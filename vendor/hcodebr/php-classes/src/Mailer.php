@@ -10,7 +10,7 @@
 		private $mail;
 
 		const USERNAME  = "contato@temsaboresaude.com.br";
-		const PASSWORD  = "di0EjUhG0Rj1";
+		const PASSWORD  = "WU0aUnQUwcxH";
 		const NAME_FROM = "Sabor e Saúde";
 
 		public function __construct( $toAddress, $toName, $subject, $tplName, $data = array() )
@@ -98,10 +98,10 @@
 			//$this->$mail->addAttachment('images/phpmailer_mini.png');
 		}
 
-	public function send()
-	{
-		return $this->mail->send();
-	}
+		public function send()
+		{
+			return $this->mail->send();
+		}
 
 	}
 
