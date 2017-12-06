@@ -18,20 +18,8 @@
                                 <a href="https://www.facebook.com/saboresaudesaladadefrutas/" target="_blank">
                                     <i class="fa fa-facebook"></i>
                                 </a>
-                                <a href="#" target="_blank">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
-                                <a href="#" target="_blank">
-                                    <i class="fa fa-youtube"></i>
-                                </a>
-                                <a href="#" target="_blank">
+                                <a href="https://www.instagram.com/pontosaboresaude/" target="_blank">
                                     <i class="fa fa-instagram"></i>
-                                </a>
-                                <a href="#" target="_blank">
-                                    <i class="fa fa-linkedin"></i>
-                                </a>
-                                <a href="#" target="_blank">
-                                    <i class="fa fa-google-plus"></i>
                                 </a>
                             </div>
                         </div>

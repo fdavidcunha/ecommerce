@@ -76,10 +76,6 @@
                                 <li>
                                     <a href="#">
                                         <i class="fa fa-heart"></i> Lista de Desejos
-                                    </a></li>
-                                <li>
-                                    <a href="/cart">
-                                        <i class="fa fa-shopping-cart"></i> Meu Carrinho
                                     </a>
                                 </li>
                                 
@@ -139,6 +135,11 @@
                                         <!--<li><a href="#">Inglês</a></li>
                                         <li><a href="#">Espanhol</a></li>-->
                                     </ul>
+                                    <li>
+                                        <a href="/admin">
+                                            <i class="fa fa-lock"></i> Admin
+                                        </a>
+                                    </li>
                                 </li>
 
                             </ul>
