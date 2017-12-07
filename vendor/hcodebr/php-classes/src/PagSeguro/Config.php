@@ -30,7 +30,7 @@
 		const MAX_INSTALLMENT = 1;
 
 		// URL de retorno que será chamada quando o pagseguro der o retorno.
-		const NOTIFICATION_URL = "http://www.hcodecommerce.com.br/payment/notification";
+		const NOTIFICATION_URL = "https://temsaboresaude.com.br/payment/notification";
 
 		public static function getAuthentication()
 		{
