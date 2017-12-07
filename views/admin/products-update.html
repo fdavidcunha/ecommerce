@@ -53,17 +53,17 @@
 
             <div class="form-group">
               <label for="desurl">URL</label>
-              <input type="text" class="form-control" id="desurl" name="desurl" placeholder="URL">
+              <input type="text" class="form-control" id="desurl" name="desurl" placeholder="URL" value="{$product.desurl}">
             </div>
 
             <div class="form-group">
               <label for="desdescription">Descrição</label>
-              <input type="textArea" class="form-control" id="desdescription" name="desdescription" placeholder="Descrição">
+              <textarea class="form-control" id="desdescription" name="desdescription" placeholder="Descrição">{$product.desdescription}</textarea>
             </div>
 
             <div class="form-group">
               <label for="file">Foto</label>
-              <input type="file" class="form-control" id="file" name="file" value="{$product.vlweight}">
+              <input type="file" class="form-control" id="file" name="file" value="{$product.desphoto}">
               <div class="box box-widget">
                 <div class="box-body">
                   <img class="img-responsive" id="image-preview" src="{$product.desphoto}" alt="Photo" style="height: 300px">

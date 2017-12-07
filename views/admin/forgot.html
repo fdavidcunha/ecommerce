@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Lockscreen</title>
+  <title>Sabor & Saúde | Recuperação de senha</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -26,7 +26,7 @@
 <!-- Automatic element centering -->
 <div class="lockscreen-wrapper">
   <div class="lockscreen-logo">
-    <a href="/res/admin/index2.html"><b>Admin</b>LTE</a>
+    <a href="/res/admin/index2.html">Sabor<b> & </b>Saúde</a>
   </div>
 
   <!-- START LOCK SCREEN ITEM -->
@@ -35,7 +35,7 @@
     <!-- lockscreen credentials (contains the form) -->
     <form  action="/admin/forgot" method="post">
       <div class="input-group">
-        <input type="email" class="form-control" placeholder="Digite o e-mail" name="email">
+        <input type="email" class="form-control" placeholder="Digite seu e-mail" name="email">
 
         <div class="input-group-btn">
           <button type="submit" class="btn"><i class="fa fa-arrow-right text-muted"></i></button>
@@ -50,11 +50,11 @@
     Digite seu e-mail e receba as instruções para redefinir a sua senha.
   </div>
   <div class="text-center">
-    <a href="/admin/login">Or sign in as a different user</a>
+    <a href="/admin/login">Ou entre com um usuário diferente</a>
   </div>
   <div class="lockscreen-footer text-center">
-    Copyright &copy; 2014-2016 <b><a href="http://almsaeedstudio.com" class="text-black">Almsaeed Studio</a></b><br>
-    All rights reserved
+    Copyright &copy; 2017-2017 <b><a href="https://seemantica.com.br" class="text-black">Seemantica Sistemas</a></b><br>
+    Todos os direitos reservados
   </div>
 </div>
 <!-- /.center -->

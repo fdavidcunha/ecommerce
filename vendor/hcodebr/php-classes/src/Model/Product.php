@@ -35,16 +35,17 @@ class Product extends Model {
 
 		$sql = new Sql();
 
-		$results = $sql->select( "CALL sp_products_save( :pidproduct, :pdesproduct, :pvlprice, :pvlwidth, :pvlheight, :pvllength, :pvlweight, :pdesurl )", 
+		$results = $sql->select( "CALL sp_products_save( :pidproduct, :pdesproduct, :pvlprice, :pvlwidth, :pvlheight, :pvllength, :pvlweight, :pdesurl, :pdesdescription )", 
                                   array( 
-                                  	":pidproduct"  => $this->getidproduct(),
-                                  	":pdesproduct" => $this->getdesproduct(),
-                                  	":pvlprice"    => $this->getvlprice(),
-                                  	":pvlwidth"    => $this->getvlwidth(),
-                                  	":pvlheight"   => $this->getvlheight(),
-                                  	":pvllength"   => $this->getvllength(),
-                                  	":pvlweight"   => $this->getvlweight(),
-	                                ":pdesurl"     => $this->getdesurl() 
+                                  	":pidproduct"      => $this->getidproduct(),
+                                  	":pdesproduct"     => $this->getdesproduct(),
+                                  	":pvlprice"        => $this->getvlprice(),
+                                  	":pvlwidth"        => $this->getvlwidth(),
+                                  	":pvlheight"       => $this->getvlheight(),
+                                  	":pvllength"       => $this->getvllength(),
+                                  	":pvlweight"       => $this->getvlweight(),
+	                                ":pdesurl"         => $this->getdesurl(), 
+	                                ":pdesdescription" => $this->getdesdescription() 
 	                            ));
 
 		$this->setData( $results[ 0 ] );
